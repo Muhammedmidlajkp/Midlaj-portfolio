@@ -1,0 +1,147 @@
+#contact {
+  text-align: center;
+  padding: 140px 60px;
+}
+
+.contact-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.contact-title {
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.contact-title span {
+  color: var(--accent);
+}
+
+.contact-sub {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 56px;
+}
+
+/* FORM STYLES */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.form-group {
+  position: relative;
+  width: 100%;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 18px 24px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: #fff;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--accent);
+  background: rgba(200, 242, 80, 0.02);
+  box-shadow: 0 0 20px rgba(200, 242, 80, 0.05);
+}
+
+.contact-form textarea {
+  resize: none;
+}
+
+.contact-form .btn-primary {
+  width: 100%;
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  padding: 20px;
+}
+
+/* DIVIDER */
+.contact-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 48px;
+  opacity: 0.5;
+}
+
+.contact-divider::before,
+.contact-divider::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--border);
+}
+
+.contact-divider span {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.2em;
+}
+
+.contact-email {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 4px;
+  margin-bottom: 48px;
+  transition: color 0.2s;
+}
+
+.contact-email:hover {
+  color: var(--accent);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social-link {
+  padding: 12px 24px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.social-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+@media (max-width: 900px) {
+  #contact {
+    padding: 80px 24px;
+  }
+  .social-links {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,118 @@
+#skills {
+  padding: 120px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.skills-marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  padding: 15px 0;
+}
+
+.marquee-track.left {
+  animation: scroll-left 40s linear infinite;
+}
+
+.marquee-track.right {
+  animation: scroll-right 40s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.skill-card {
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 24px;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  margin-right: 20px;
+}
+
+.skill-card:hover {
+  border-color: #c6f135;
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(198, 241, 53, 0.15);
+  z-index: 10;
+}
+
+.skill-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover .skill-icon-wrapper {
+  transform: translateY(-2px);
+}
+
+.skill-name {
+  font-family: var(--font-mono, sans-serif);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.skill-card:hover .skill-name {
+  color: #c6f135;
+}
+
+@media (max-width: 900px) {
+  #skills {
+    padding: 80px 24px;
+  }
+  .skills-marquee-container {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+  .skill-card {
+    width: 130px;
+    height: 130px;
+    padding: 16px;
+    gap: 12px;
+    margin-right: 16px;
+  }
+  .skill-name {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+}
