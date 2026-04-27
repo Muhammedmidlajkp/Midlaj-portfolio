@@ -54,10 +54,27 @@
 @media (max-width: 900px) {
   #about {
     grid-template-columns: 1fr;
-    padding: 80px 24px;
+    padding: 80px 40px;
     gap: 40px;
   }
   .about-right {
     order: -1;
   }
 }
+
+@media (max-width: 600px) {
+  #about {
+    padding: 60px 24px;
+    gap: 32px;
+  }
+  
+  .about-stats {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .stat-number {
+    font-size: 2.2rem;
+  }
+}
+

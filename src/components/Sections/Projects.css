@@ -139,16 +139,34 @@
 
 @media (max-width: 900px) {
   #projects {
-    padding: 80px 24px;
+    padding: 80px 40px;
   }
   .projects-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
   .project-card:first-child {
     grid-column: 1;
     grid-template-columns: 1fr;
+    gap: 32px;
   }
   .project-card {
     cursor: auto;
+    padding: 28px;
   }
 }
+
+@media (max-width: 600px) {
+  #projects {
+    padding: 60px 24px;
+  }
+  
+  .project-title {
+    font-size: 1.25rem;
+  }
+  
+  .project-desc {
+    font-size: 0.78rem;
+  }
+}
+

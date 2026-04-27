@@ -9,8 +9,7 @@ const About = () => {
         <p className="section-label reveal">// About Me</p>
         <h2 className="section-title reveal reveal-delay-1">Crafting code<br />with purpose.</h2>
         <p className="about-text reveal reveal-delay-2">
-          I'm Muhammed midlaj, a web developer with a passion for clean code and thoughtful design. I specialize in
-          building fast, modern web applications that balance function and beauty.
+          I'm Muhammed midlaj, a web developer with a passion for clean code and thoughtful design. I specialize in          building fast, modern web applications that balance function and beauty.
         </p>
         <p className="about-text reveal reveal-delay-2">
           When I'm not coding, I'm exploring design systems, contributing to open source, or brewing the perfect cup of coffee.
@@ -35,7 +34,7 @@ const About = () => {
         </div>
       </div>
       <div className="about-right reveal reveal-delay-2">
-        <ProfileCard name="Muhammed Midlaj" role="Web Developer" />
+        <ProfileCard name="Muhammed Midlaj" role="MERN Stack Developer" />
       </div>
     </section>
   );

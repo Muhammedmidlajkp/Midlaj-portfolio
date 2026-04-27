@@ -13,7 +13,7 @@ const Hero = () => {
         tomorrow.
       </h1>
       <p className="hero-desc">
-        I'm a web developer crafting performant, accessible, and beautiful digital experiences — from pixel to production.
+        I'm a web  developer crafting performant, accessible, and beautiful digital experiences — from pixel to production.
       </p>
       <div className="hero-cta">
         <a href="#projects" className="btn-primary">View My Work</a>

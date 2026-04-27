@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ProfileCard.css';
 import profileImg from '../../assets/profile.png';
 
-const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
+const ProfileCard = ({ name = "Muhammed Midlaj", role = "MERN Stack Developer" }) => {
   const [imgError, setImgError] = useState(false);
 
   return (

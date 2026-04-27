@@ -139,9 +139,38 @@
 
 @media (max-width: 900px) {
   #contact {
-    padding: 80px 24px;
+    padding: 80px 40px;
   }
   .social-links {
     flex-wrap: wrap;
+    justify-content: center;
   }
 }
+
+@media (max-width: 600px) {
+  #contact {
+    padding: 60px 24px;
+  }
+  
+  .contact-title {
+    font-size: 2.2rem;
+  }
+  
+  .contact-email {
+    font-size: 1rem;
+    word-break: break-all;
+  }
+  
+  .social-link {
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    padding: 14px 20px;
+    font-size: 0.85rem;
+  }
+}
+
