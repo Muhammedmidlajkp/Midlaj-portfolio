@@ -1,5 +1,4 @@
 import './index.css';
-import './components/UI/Preloader.css';
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Layout/Navbar';

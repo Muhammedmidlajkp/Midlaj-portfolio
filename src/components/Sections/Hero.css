@@ -50,13 +50,17 @@
 
 .grid-bg {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 80px 80px;
   z-index: -1;
   mask-image: radial-gradient(ellipse 80% 60% at 60% 50%, black 40%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 60% 50%, black 40%, transparent 100%);
 }
 
 .hero-glow {
@@ -93,4 +97,5 @@
   .hero-cta {
     flex-direction: column;
     gap: 12px;
+  }
 }
