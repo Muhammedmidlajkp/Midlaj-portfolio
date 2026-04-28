@@ -34,7 +34,7 @@ const About = () => {
         </div>
       </div>
       <div className="about-right reveal reveal-delay-2">
-        <ProfileCard name="Muhammed Midlaj" role="MERN Stack Developer" />
+        <ProfileCard name="Muhammed Midlaj" role="Web Developer" />
       </div>
     </section>
   );

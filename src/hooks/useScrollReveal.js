@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useScrollReveal = () => {
+export const useScrollReveal = (dependencies = []) => {
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
     
@@ -26,5 +26,5 @@ export const useScrollReveal = () => {
     return () => {
       reveals.forEach(el => observer.unobserve(el));
     };
-  }, []);
+  }, dependencies);
 };
