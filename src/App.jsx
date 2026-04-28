@@ -1,3 +1,5 @@
+import './index.css';
+import './components/UI/Preloader.css';
 import React, { useState } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Layout/Navbar';
@@ -11,7 +13,6 @@ import Projects from './components/Sections/Projects';
 import Contact from './components/Sections/Contact';
 import Preloader from './components/UI/Preloader';
 import { useScrollReveal } from './hooks/useScrollReveal';
-import './index.css';
 
 function App() {
   const [loading, setLoading] = useState(true);
