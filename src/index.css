@@ -33,20 +33,14 @@ body {
   cursor: none;
 }
 
-/* NOISE OVERLAY
- * PRODUCTION FIX: z-index moved to -1 so this overlay renders *below* all
- * page content. Previously at z-index:100 it sat between the page and the
- * navbar, causing backdrop-filter to sample this nearly-invisible SVG layer
- * instead of the actual hero content — making the glass effect invisible in
- * production (Vercel) while localhost Vite dev server handled it differently.
- */
+/* NOISE OVERLAY */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: -1;
+  z-index: 100;
   opacity: 0.4;
 }
 
@@ -102,10 +96,21 @@ body::before {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
 
 /* DIVIDER */
 .divider {
@@ -124,10 +129,13 @@ body::before {
 }
 
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
   }
+
   50% {
     transform: scale(1.05);
     opacity: 0.7;
@@ -156,23 +164,24 @@ body::before {
   body {
     cursor: auto;
   }
-  
+
   .section-title {
     margin-bottom: 32px;
   }
 }
 
 @media (max-width: 480px) {
-  .btn-primary, .btn-secondary {
+
+  .btn-primary,
+  .btn-secondary {
     padding: 14px 28px;
     font-size: 0.85rem;
     width: 100%;
     text-align: center;
   }
-  
+
   .section-label {
     font-size: 0.65rem;
     margin-bottom: 12px;
   }
 }
-
