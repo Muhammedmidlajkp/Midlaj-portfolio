@@ -6,7 +6,7 @@ export const projects = [
     desc: "A full-stack travel platform featuring AI-powered itineraries, seamless Google OAuth authentication, secure Razorpay integration, and real-time interactions.",
     tags: ["Node.js", "Express", "MongoDB", "EJS", "Razorpay", "REST APIs"],
     visual: "/traveezy-visual.png",
-    link: "https://traveezy-git-main-midlumidlaj02-8194s-projects.vercel.app/",
+    link: "https://www.traveezy.online/",
     featured: true
   },
   {
