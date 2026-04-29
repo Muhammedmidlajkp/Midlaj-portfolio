@@ -14,9 +14,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* Solid color as fallback for browsers where backdrop-filter fails */
+  /* Solid fallback when backdrop-filter is unavailable */
   background: rgb(15, 15, 15);
   background: rgba(15, 15, 15, 0.72);
+  /* backdrop-filter REQUIRES the element to have a stacking context.
+     position: relative establishes one; without it, Chrome ignores backdrop-filter
+     on elements inside a fixed parent in production builds. */
+  position: relative;
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -26,18 +30,13 @@
   width: 100%;
   pointer-events: auto;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-  /*
-   * PRODUCTION FIX: translateZ(0) forces the browser to create a
-   * dedicated GPU compositing layer for this element. Without it,
-   * backdrop-filter samples the body::before noise overlay (z-index:100)
-   * instead of the actual page content — making the blur invisible in
-   * Vercel/production while localhost dev server behaves differently.
-   */
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
+  /* Force dedicated GPU compositing layer so backdrop samples all layers below */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  isolation: isolate;
 }
 
-/* Opaque fallback when backdrop-filter is unsupported */
+/* Opaque fallback for browsers that don't support backdrop-filter */
 @supports not (backdrop-filter: blur(1px)) {
   .pill-nav {
     background: rgba(15, 15, 15, 0.96);

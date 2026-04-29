@@ -23,28 +23,28 @@
 
 html {
   scroll-behavior: smooth;
+  /* overflow-x here (not on body) — body with overflow:hidden creates a
+     compositing boundary that breaks backdrop-filter on fixed children */
+  overflow-x: hidden;
 }
 
 body {
   background: var(--black);
   color: var(--text);
   font-family: var(--font-display);
-  overflow-x: hidden;
   cursor: none;
 }
 
-/* NOISE OVERLAY
- * z-index: -1 keeps this below all page content. Previously at z-index:100
- * it blocked backdrop-filter on the navbar from sampling actual page content,
- * making the glass blur invisible in production (Vercel) builds.
- */
+/* NOISE OVERLAY — z-index:9 keeps it above body bg but below all page
+   content and the navbar. Previously at z-index:100 it was between the
+   content and navbar, interfering with backdrop-filter sampling. */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: -1;
+  z-index: 9;
   opacity: 0.4;
 }
 
