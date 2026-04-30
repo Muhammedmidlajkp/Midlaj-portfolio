@@ -26,7 +26,7 @@ export const projects = [
     desc: "An automated conversational AI assistant capable of handling interactive phone calls, executing custom backend workflows, and processing real-time responses.",
     tags: ["n8n", "Node.js", "AI APIs", "Webhooks"],
     visual: "🤖",
-    link: "#",
+    link: "https://www.linkedin.com/posts/muhammed-midlaj-kp_ai-n8n-automation-ugcPost-7455562621023358976--rnC?utm_source=share&utm_medium=member_desktop&rcm=ACoAADhZn_UBj8PFRQYco9oG-gejy6HBUkBQCE8",
     featured: false
   }
 ];

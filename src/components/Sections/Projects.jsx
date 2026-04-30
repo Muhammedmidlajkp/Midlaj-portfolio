@@ -22,7 +22,7 @@ const Projects = () => {
                   <span key={i} className="tag">{tag}</span>
                 ))}
               </div>
-              <a className="project-link" href={project.link}>View Project →</a>
+              <a className="project-link" href={project.link} target="_blank" rel="noopener noreferrer">View Project →</a>
             </div>
             {project.featured && (
               <div className="project-visual">
