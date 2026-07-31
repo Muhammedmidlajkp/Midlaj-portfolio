@@ -96,6 +96,11 @@
   color: var(--accent);
 }
 
+/* when the screenshot sits on top of the card, give it air before the text */
+.project-visual:first-child {
+  margin-bottom: 26px;
+}
+
 .project-visual {
   width: 100%;
   aspect-ratio: 16/9;
@@ -118,6 +123,11 @@
 
 .project-card:hover .project-image {
   transform: scale(1.05);
+}
+
+.project-visual-emoji {
+  font-size: 4rem;
+  background: linear-gradient(135deg, #111 0%, #1e1e1e 100%);
 }
 
 .project-link {
@@ -160,11 +170,11 @@
   #projects {
     padding: 60px 24px;
   }
-  
+
   .project-title {
     font-size: 1.25rem;
   }
-  
+
   .project-desc {
     font-size: 0.78rem;
   }

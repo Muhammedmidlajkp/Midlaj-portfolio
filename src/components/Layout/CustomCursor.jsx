@@ -16,6 +16,7 @@ const CustomCursor = () => {
 
     window.addEventListener('mousemove', handleMouseMove);
 
+    let animationId;
     const animate = () => {
       // Smooth interpolation (lerp)
       // The smaller the multiplier (e.g., 0.1), the smoother/slower the delay
@@ -32,10 +33,12 @@ const CustomCursor = () => {
         ringRef.current.style.transform = `translate(${ringPos.current.x}px, ${ringPos.current.y}px) translate(-50%, -50%)`;
       }
 
-      requestAnimationFrame(animate);
+      // store the id each frame so cleanup cancels the CURRENT frame,
+      // not just the first one (otherwise the loop outlives the component)
+      animationId = requestAnimationFrame(animate);
     };
 
-    const animationId = requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
 
     // Hide default cursor on links and interactables
     const handleHover = () => {

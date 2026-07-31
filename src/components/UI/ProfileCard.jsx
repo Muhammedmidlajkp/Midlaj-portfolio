@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ProfileCard.css';
-import profileImg from '../../assets/profile.png';
+// optimized export (800w JPEG, ~54 KB) of the original 6.3 MB PNG
+import profileImg from '../../assets/profile.jpg';
 
 const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
   const [imgError, setImgError] = useState(false);
@@ -11,10 +12,13 @@ const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
         <div className="profile-card-wrapper">
           <div className="port-card" id="card">
             {!imgError ? (
-              <img 
-                src={profileImg} 
-                alt={name} 
-                id="pimg" 
+              <img
+                src={profileImg}
+                alt={`Portrait of ${name}`}
+                id="pimg"
+                width="800"
+                height="1067"
+                fetchPriority="high"
                 onError={() => setImgError(true)}
               />
             ) : (

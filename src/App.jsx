@@ -25,10 +25,11 @@ function App() {
 
       {!loading && (
         <div className="app">
+          <a className="skip-link" href="#main">Skip to main content</a>
           <CustomCursor />
           <WhatsAppButton />
           <Navbar />
-          <main>
+          <main id="main">
             <Hero />
             <div className="divider"></div>
             <About />

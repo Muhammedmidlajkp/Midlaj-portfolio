@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import './Preloader.css';
 
 const Preloader = ({ onFinish }) => {
@@ -8,32 +8,33 @@ const Preloader = ({ onFinish }) => {
   useEffect(() => {
     let currentProgress = 0;
     const interval = setInterval(() => {
-      // Slower, more realistic loading increments (1 to 3%)
-      currentProgress += Math.floor(Math.random() * 3) + 1;
-      
-      // Simulate a slight "hang" when loading heavy assets near the end
-      if (currentProgress > 85 && currentProgress < 98 && Math.random() > 0.7) {
-        currentProgress -= 2; // Pause progress slightly
-      }
+      // Brisk increments — the counter is decorative, and every tick delays
+      // LCP because the app mounts only after it finishes.
+      currentProgress += Math.floor(Math.random() * 4) + 4;
 
       if (currentProgress >= 100) {
         currentProgress = 100;
         clearInterval(interval);
-        
-        // Slightly longer dramatic pause at 100% before triggering exit
+
+        // Short beat at 100% before the exit slide
         setTimeout(() => {
           onFinish();
-        }, 600);
+        }, 250);
       }
       setProgress(currentProgress);
-    }, 50); // Increased interval time for a slower load
+    }, 30);
 
     return () => clearInterval(interval);
   }, [onFinish]);
 
   return (
-    <motion.div
+    <Motion.div
       className="preloader-container"
+      role="progressbar"
+      aria-label="Loading portfolio"
+      aria-valuenow={progress}
+      aria-valuemin={0}
+      aria-valuemax={100}
       initial={{ y: 0 }}
       exit={{ 
         y: "-100%",
@@ -44,24 +45,24 @@ const Preloader = ({ onFinish }) => {
       }}
     >
       <div className="preloader-content">
-        <motion.div 
+        <Motion.div 
           className="preloader-counter"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {progress}%
-        </motion.div>
+        </Motion.div>
         <div className="preloader-bar-container">
-          <motion.div 
+          <Motion.div 
             className="preloader-bar"
             style={{ width: `${progress}%` }}
             layout
-          ></motion.div>
+          ></Motion.div>
         </div>
         <div className="preloader-label">SYSTEM_BOOT_SEQUENCE</div>
       </div>
-    </motion.div>
+    </Motion.div>
   );
 };
 

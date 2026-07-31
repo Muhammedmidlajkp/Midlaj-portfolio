@@ -16,7 +16,9 @@
   --accent: #c8f250;
   --accent2: #50f2c8;
   --text: #e8e8e8;
-  --muted: #666;
+  /* raised from #666 (≈3.5:1 on the dark backgrounds — fails WCAG AA) to
+     #9b9b9b (≈7:1 on #080808, ≈6.6:1 on #141414) so body copy passes 1.4.3 */
+  --muted: #9b9b9b;
   --font-display: 'Syne', sans-serif;
   --font-mono: 'DM Mono', monospace;
   /* Force dark scrollbar in all browsers */
@@ -49,7 +51,17 @@ body {
   background: var(--black);
   color: var(--text);
   font-family: var(--font-display);
-  cursor: none;
+}
+
+/* The custom cursor replaces the native one ONLY where it actually renders:
+   fine-pointer (mouse) desktop. Touch devices and small viewports keep their
+   native cursor so interactive elements are never cursor-less. */
+@media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+  body,
+  body a,
+  body button {
+    cursor: none;
+  }
 }
 
 /* NOISE OVERLAY — z-index:9 keeps it above body bg but below all page
@@ -63,6 +75,32 @@ body::before {
   pointer-events: none;
   z-index: 9;
   opacity: 0.4;
+}
+
+/* SKIP LINK — first focusable element, bypasses nav for keyboard/SR users.
+   Invisible until focused, so it changes nothing visually. */
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 3000;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  padding: 12px 20px;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* GLOBAL FOCUS RING — visible keyboard focus everywhere (WCAG 2.4.7) */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* BUTTONS */
@@ -204,5 +242,27 @@ body::before {
   .section-label {
     font-size: 0.65rem;
     margin-bottom: 12px;
+  }
+}
+
+/* REDUCED MOTION — neutralize non-essential motion (WCAG 2.3.3 / 2.2.2).
+   Covers the marquee, scan-line, pulses, reveal transforms, and smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

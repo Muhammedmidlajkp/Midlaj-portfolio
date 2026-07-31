@@ -35,7 +35,9 @@
   opacity: 1;
 }
 
-@media (max-width: 900px) {
+/* hide on small viewports AND on any device without a fine pointer
+   (touch tablets/laptops), matching the cursor:none scope in index.css */
+@media (max-width: 900px), (hover: none), (pointer: coarse) {
   .cursor-dot, .cursor-ring {
     display: none;
   }

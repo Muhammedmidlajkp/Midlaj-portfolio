@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion as Motion } from 'framer-motion';
 import './Hero.css';
 
 const Hero = () => {
@@ -40,7 +40,7 @@ const Hero = () => {
 
   const splitText = (text, staggerDelay = 0.03) => {
     return (
-      <motion.span
+      <Motion.span
         variants={{
           visible: { transition: { staggerChildren: staggerDelay } }
         }}
@@ -49,18 +49,18 @@ const Hero = () => {
         {text.split(" ").map((word, wordIndex) => (
           <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap', overflow: 'hidden', verticalAlign: 'top' }}>
             {word.split("").map((char, charIndex) => (
-              <motion.span
+              <Motion.span
                 key={charIndex}
                 variants={charVariants}
                 style={{ display: 'inline-block' }}
               >
                 {char}
-              </motion.span>
+              </Motion.span>
             ))}
             <span style={{ display: 'inline-block' }}>&nbsp;</span>
           </span>
         ))}
-      </motion.span>
+      </Motion.span>
     );
   };
 
@@ -83,7 +83,7 @@ const Hero = () => {
     };
 
     return (
-      <motion.span
+      <Motion.span
         variants={{
           hidden: {},
           visible: { transition: { staggerChildren: staggerDelay, delayChildren: initialDelay } }
@@ -95,20 +95,20 @@ const Hero = () => {
             {word.split("").map((char, charIndex) => {
               const currentGlobalIndex = globalCharIndex++;
               return (
-                <motion.span
+                <Motion.span
                   custom={currentGlobalIndex}
                   key={charIndex}
                   variants={alternatingCharVariants}
                   style={{ display: 'inline-block' }}
                 >
                   {char}
-                </motion.span>
+                </Motion.span>
               );
             })}
             <span style={{ display: 'inline-block' }}>&nbsp;</span>
           </span>
         ))}
-      </motion.span>
+      </Motion.span>
     );
   };
 
@@ -126,7 +126,7 @@ const Hero = () => {
     };
 
     return (
-      <motion.span
+      <Motion.span
         variants={{
           hidden: {},
           visible: { transition: { staggerChildren: staggerDelay, delayChildren: initialDelay } }
@@ -136,25 +136,25 @@ const Hero = () => {
         {text.split(" ").map((word, wordIndex) => (
           <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap', verticalAlign: 'top' }}>
             {word.split("").map((char, charIndex) => (
-              <motion.span
+              <Motion.span
                 key={charIndex}
                 variants={typingCharVariants}
                 style={{ display: 'inline-block' }}
               >
                 {char}
-              </motion.span>
+              </Motion.span>
             ))}
             {wordIndex < text.split(" ").length - 1 && (
               <span style={{ display: 'inline-block' }}>&nbsp;</span>
             )}
           </span>
         ))}
-      </motion.span>
+      </Motion.span>
     );
   };
 
   return (
-    <motion.div
+    <Motion.div
       id="hero"
       initial="hidden"
       animate="visible"
@@ -163,9 +163,9 @@ const Hero = () => {
       <div className="grid-bg"></div>
       <div className="hero-glow"></div>
 
-      <motion.p className="hero-tag" variants={itemVariants}>
+      <Motion.p className="hero-tag" variants={itemVariants}>
         ● Available for work
-      </motion.p>
+      </Motion.p>
 
       <h1 className="hero-title">
         <span style={{ display: 'block' }}>
@@ -179,18 +179,18 @@ const Hero = () => {
         </span>
       </h1>
 
-      <motion.p
+      <Motion.p
         className="hero-desc"
         variants={itemVariants}
       >
         {splitText("I'm a web developer crafting performant, accessible, and beautiful digital experiences — from pixel to production.", 0.015)}
-      </motion.p>
+      </Motion.p>
 
-      <motion.div className="hero-cta" variants={itemVariants}>
+      <Motion.div className="hero-cta" variants={itemVariants}>
         <a href="#projects" className="btn-primary">View My Work</a>
         <a href="#contact" className="btn-secondary">Get In Touch</a>
-      </motion.div>
-    </motion.div>
+      </Motion.div>
+    </Motion.div>
   );
 
 };

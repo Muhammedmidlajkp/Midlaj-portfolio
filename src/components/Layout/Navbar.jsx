@@ -23,12 +23,23 @@ const Navbar = () => {
     };
   }, [isMenuOpen]);
 
+  // Close the mobile menu with Escape (WCAG keyboard operability)
+  useEffect(() => {
+    if (!isMenuOpen) return;
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape') closeMenu();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMenuOpen]);
+
   return (
     <div className="nav-wrapper">
       <nav className="pill-nav">
-        <div className="logo" onClick={() => window.scrollTo(0, 0)}>
+        {/* anchor instead of a div so the logo is keyboard-operable */}
+        <a className="logo" href="#hero" aria-label="Midlaj — back to top">
           Midlaj<span>.</span>
-        </div>
+        </a>
         
         {/* Desktop Links */}
         <div className="nav-links">
@@ -44,7 +55,13 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Hamburger */}
-        <button className="mobile-toggle" onClick={toggleMenu} aria-label="Toggle menu">
+        <button
+          className="mobile-toggle"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+          aria-expanded={isMenuOpen}
+          aria-controls="mobile-menu"
+        >
           <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
             <span></span>
             <span></span>
@@ -54,7 +71,7 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Modal Menu */}
-      <div className={`mobile-modal-overlay ${isMenuOpen ? 'active' : ''}`} onClick={closeMenu}>
+      <div id="mobile-menu" className={`mobile-modal-overlay ${isMenuOpen ? 'active' : ''}`} onClick={closeMenu}>
         <div className="mobile-modal-content" onClick={(e) => e.stopPropagation()}>
           <button className="close-btn" onClick={closeMenu} aria-label="Close menu">
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">

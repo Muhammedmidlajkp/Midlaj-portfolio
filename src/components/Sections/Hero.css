@@ -99,3 +99,12 @@
     gap: 12px;
   }
 }
+
+/* ≤360px: "tomorrow." (9 wide Syne-800 glyphs, one unbreakable word)
+   overflows the viewport at the 2.8rem clamp floor — size it so the
+   word fits the content box (~0.88em per glyph measured) */
+@media (max-width: 360px) {
+  .hero-title {
+    font-size: clamp(1.9rem, 10.5vw, 2.8rem);
+  }
+}
