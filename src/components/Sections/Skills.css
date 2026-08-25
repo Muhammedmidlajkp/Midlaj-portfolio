@@ -4,115 +4,234 @@
   margin: 0 auto;
 }
 
-.skills-marquee-container {
+/* ---------- Header: label + title left, philosophy right ---------- */
+
+.sk-head {
   display: flex;
-  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  margin-bottom: 56px;
+}
+
+.sk-head .section-title {
+  margin-bottom: 0;
+}
+
+.sk-philosophy {
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 360px;
+  padding-bottom: 10px;
+}
+
+/* ---------- Category grid: 3 / 2 / 1 columns ---------- */
+
+.sk-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  width: 100%;
+}
+
+/* ---------- Category card ---------- */
+
+.sc-card {
   position: relative;
+  background: linear-gradient(180deg, #161616 0%, #101010 100%);
+  border: 1px solid #232323;
+  border-radius: 16px;
+  padding: 26px 26px 28px;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  transition:
+    transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.35s ease,
+    box-shadow 0.45s ease;
 }
 
-.marquee-track {
+.sc-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(200, 242, 80, 0.28);
+  box-shadow:
+    0 18px 44px -20px rgba(0, 0, 0, 0.8),
+    0 12px 40px -24px rgba(200, 242, 80, 0.18);
+}
+
+/* pointer-tracked gradient, visible only while hovering */
+.sc-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(200, 242, 80, 0.07),
+    transparent 70%
+  );
+}
+
+.sc-card:hover .sc-glow {
+  opacity: 1;
+}
+
+/* card header + divider */
+.sc-head {
   display: flex;
-  width: max-content;
-  padding: 15px 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #232323;
 }
 
-.marquee-track.left {
-  animation: scroll-left 40s linear infinite;
+.sc-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
 }
 
-.marquee-track.right {
-  animation: scroll-right 40s linear infinite;
+.sc-count {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
 }
 
-.marquee-track:hover {
-  animation-play-state: paused;
+/* ---------- Skill chips ---------- */
+
+.sc-chips {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-@keyframes scroll-left {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+.sc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px 9px 11px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  opacity: 0;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-@keyframes scroll-right {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+/* chips fade up with a small stagger once the card reveals */
+.sc-card.visible .sc-chip {
+  animation: sc-chip-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--chip-i, 0) * 55ms + 0.15s);
 }
 
-.skill-card {
-  background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 12px;
-  padding: 24px;
-  width: 160px;
-  height: 160px;
+@keyframes sc-chip-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sc-chip:hover {
+  transform: scale(1.04);
+  border-color: rgba(200, 242, 80, 0.35);
+  background: rgba(200, 242, 80, 0.05);
+  box-shadow: 0 6px 18px -8px rgba(200, 242, 80, 0.25);
+}
+
+.sc-chip-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
   flex-shrink: 0;
+}
+
+.sc-chip-letter {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.sc-chip-text {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  margin-right: 20px;
+  gap: 2px;
 }
 
-.skill-card:hover {
-  border-color: #c6f135;
-  transform: scale(1.03);
-  box-shadow: 0 8px 24px rgba(198, 241, 53, 0.15);
-  z-index: 10;
+.sc-chip-name {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #d6d6d6;
+  white-space: nowrap;
 }
 
-.skill-icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.3s ease;
-}
-
-.skill-card:hover .skill-icon-wrapper {
-  transform: translateY(-2px);
-}
-
-.skill-name {
-  font-family: var(--font-mono, sans-serif);
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: #aaaaaa;
+.sc-chip-meta {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  text-align: center;
-  transition: color 0.3s ease;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
-.skill-card:hover .skill-name {
-  color: #c6f135;
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1024px) {
+  .sk-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 900px) {
   #skills {
     padding: 80px 24px;
   }
-  .skills-marquee-container {
-    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+
+  .sk-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 40px;
   }
-  .skill-card {
-    width: 130px;
-    height: 130px;
-    padding: 16px;
-    gap: 12px;
-    margin-right: 16px;
+
+  .sk-philosophy {
+    padding-bottom: 0;
+    max-width: none;
   }
-  .skill-name {
-    font-size: 0.7rem;
-    letter-spacing: 1px;
+
+  .sc-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .sk-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .sc-card {
+    padding: 22px 20px 24px;
   }
 }
