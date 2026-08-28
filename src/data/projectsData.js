@@ -32,7 +32,7 @@ export const projects = [
   {
     id: 2,
     num: "04",
-    title: "Nizan tech",
+    title: "Nizan Tech",
     desc: "A real-time project tracking application featuring sprint management, daily task planning, employee productivity monitoring, and WebSocket-based activity logging.",
     tags: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
     visual: null,

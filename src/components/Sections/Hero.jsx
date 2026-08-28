@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion as Motion } from 'framer-motion';
+import { motion as Motion, MotionConfig } from 'framer-motion';
 import './Hero.css';
 
 const Hero = () => {
@@ -41,6 +41,7 @@ const Hero = () => {
   const splitText = (text, staggerDelay = 0.03) => {
     return (
       <Motion.span
+        aria-hidden="true"
         variants={{
           visible: { transition: { staggerChildren: staggerDelay } }
         }}
@@ -154,6 +155,9 @@ const Hero = () => {
   };
 
   return (
+    // reducedMotion="user": the CSS media-query kill-switch cannot stop
+    // framer-motion's JS-driven transforms, so opt in at the source
+    <MotionConfig reducedMotion="user">
     <Motion.div
       id="hero"
       initial="hidden"
@@ -167,14 +171,16 @@ const Hero = () => {
         ● Available for work
       </Motion.p>
 
-      <h1 className="hero-title">
-        <span style={{ display: 'block' }}>
+      {/* aria-label carries the real headline — the per-character spans
+          below would otherwise be announced letter by letter */}
+      <h1 className="hero-title" aria-label="Building the web of tomorrow.">
+        <span style={{ display: 'block' }} aria-hidden="true">
           {alternatingSplitText("Building the", 0.04, 0.8)}
         </span>
-        <span className="line2" style={{ display: 'block' }}>
+        <span className="line2" style={{ display: 'block' }} aria-hidden="true">
           {alternatingSplitText("web of", 0.04, 0.8)}
         </span>
-        <span style={{ display: 'block' }}>
+        <span style={{ display: 'block' }} aria-hidden="true">
           {typingSplitText("tomorrow.", 0.08, 2.4)}
         </span>
       </h1>
@@ -182,6 +188,7 @@ const Hero = () => {
       <Motion.p
         className="hero-desc"
         variants={itemVariants}
+        aria-label="I'm a web developer crafting performant, accessible, and beautiful digital experiences — from pixel to production."
       >
         {splitText("I'm a web developer crafting performant, accessible, and beautiful digital experiences — from pixel to production.", 0.015)}
       </Motion.p>
@@ -191,6 +198,7 @@ const Hero = () => {
         <a href="#contact" className="btn-secondary">Get In Touch</a>
       </Motion.div>
     </Motion.div>
+    </MotionConfig>
   );
 
 };

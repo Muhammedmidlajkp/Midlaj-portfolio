@@ -49,7 +49,6 @@ const Contact = () => {
         <div className="social-links reveal reveal-delay-4">
           <a href="https://github.com/Muhammedmidlajkp" target="_blank" rel="noopener noreferrer" className="social-link">GitHub</a>
           <a href="https://www.linkedin.com/in/muhammed-midlaj-kp/" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
-          <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="social-link">Twitter</a>
           <a href="https://www.instagram.com/__.midlaj.___/" target="_blank" rel="noopener noreferrer" className="social-link">Instagram</a>
         </div>
       </div>

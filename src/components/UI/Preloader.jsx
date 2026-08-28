@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion as Motion } from 'framer-motion';
+import { motion as Motion, MotionConfig } from 'framer-motion';
 import './Preloader.css';
 
 const Preloader = ({ onFinish }) => {
@@ -28,6 +28,7 @@ const Preloader = ({ onFinish }) => {
   }, [onFinish]);
 
   return (
+    <MotionConfig reducedMotion="user">
     <Motion.div
       className="preloader-container"
       role="progressbar"
@@ -63,6 +64,7 @@ const Preloader = ({ onFinish }) => {
         <div className="preloader-label">SYSTEM_BOOT_SEQUENCE</div>
       </div>
     </Motion.div>
+    </MotionConfig>
   );
 };
 

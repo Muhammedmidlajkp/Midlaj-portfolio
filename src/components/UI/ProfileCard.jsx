@@ -71,7 +71,7 @@ const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
             </div>
           </div>
 
-          <div className="side-label">Midlaj · Portfolio · 2025</div>
+          <div className="side-label">Midlaj · Portfolio · 2026</div>
           <div className="dot"></div>
         </div>
       </div>
