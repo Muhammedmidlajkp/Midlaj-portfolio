@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { site } from '../../data/site';
 import './Contact.css';
 
-const EMAIL = 'midlaj2636@gmail.com';
+const EMAIL = site.email;
 
 const Contact = () => {
   const [status, setStatus] = useState('');
@@ -47,9 +48,11 @@ const Contact = () => {
 
         <a href={`mailto:${EMAIL}`} className="contact-email reveal reveal-delay-4">{EMAIL}</a>
         <div className="social-links reveal reveal-delay-4">
-          <a href="https://github.com/Muhammedmidlajkp" target="_blank" rel="noopener noreferrer" className="social-link">GitHub</a>
-          <a href="https://www.linkedin.com/in/muhammed-midlaj-kp/" target="_blank" rel="noopener noreferrer" className="social-link">LinkedIn</a>
-          <a href="https://www.instagram.com/__.midlaj.___/" target="_blank" rel="noopener noreferrer" className="social-link">Instagram</a>
+          {site.socials.map((s) => (
+            <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="social-link">
+              {s.label}
+            </a>
+          ))}
         </div>
       </div>
     </section>

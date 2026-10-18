@@ -1,4 +1,3 @@
-import React from 'react';
 import './About.css';
 import ProfileCard from '../UI/ProfileCard';
 
@@ -20,16 +19,16 @@ const About = () => {
             <div className="stat-label">Years Experience</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">32</div>
-            <div className="stat-label">Projects Shipped</div>
+            <div className="stat-number">5</div>
+            <div className="stat-label">Featured Projects</div>
           </div>
           <div className="stat-item">
             <div className="stat-number">10+</div>
             <div className="stat-label">Happy Clients</div>
           </div>
           <div className="stat-item">
-            <div className="stat-number">∞</div>
-            <div className="stat-label">Lines of Code</div>
+            <div className="stat-number">3</div>
+            <div className="stat-label">Live Client Sites</div>
           </div>
         </div>
       </div>
