@@ -1,206 +1,83 @@
-import React from 'react';
-import { motion as Motion, MotionConfig } from 'framer-motion';
+import { projects } from '../../data/projectsData';
+import ProjectImage from '../UI/ProjectImage';
+import HeroBackdrop from './HeroBackdrop';
 import './Hero.css';
 
+// the proof strip shows only projects that have a real screenshot
+const featured = projects.filter((p) => p.image).slice(0, 3);
+
+// Entrance motion is pure CSS (.h-in + --d stagger in Hero.css), so the
+// headline paints with the first frame instead of waiting on JS.
 const Hero = () => {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const charVariants = {
-    hidden: { y: "100%", opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1], // Apple-style ultra smooth easing
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.2,
-        ease: [0.16, 1, 0.3, 1], // Apple-style ultra smooth easing
-      },
-    },
-  };
-
-  const splitText = (text, staggerDelay = 0.03) => {
-    return (
-      <Motion.span
-        aria-hidden="true"
-        variants={{
-          visible: { transition: { staggerChildren: staggerDelay } }
-        }}
-        style={{ display: 'inline-block' }}
-      >
-        {text.split(" ").map((word, wordIndex) => (
-          <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap', overflow: 'hidden', verticalAlign: 'top' }}>
-            {word.split("").map((char, charIndex) => (
-              <Motion.span
-                key={charIndex}
-                variants={charVariants}
-                style={{ display: 'inline-block' }}
-              >
-                {char}
-              </Motion.span>
-            ))}
-            <span style={{ display: 'inline-block' }}>&nbsp;</span>
-          </span>
-        ))}
-      </Motion.span>
-    );
-  };
-
-  const alternatingSplitText = (text, staggerDelay = 0.04, initialDelay = 0) => {
-    let globalCharIndex = 0;
-
-    const alternatingCharVariants = {
-      hidden: (i) => ({
-        x: i % 2 === 0 ? -60 : 60, 
-        opacity: 0,
-      }),
-      visible: {
-        x: 0,
-        opacity: 1,
-        transition: {
-          duration: 1.2,
-          ease: [0.16, 1, 0.3, 1], // Apple-style ultra smooth easing
-        },
-      },
-    };
-
-    return (
-      <Motion.span
-        variants={{
-          hidden: {},
-          visible: { transition: { staggerChildren: staggerDelay, delayChildren: initialDelay } }
-        }}
-        style={{ display: 'inline-block' }}
-      >
-        {text.split(" ").map((word, wordIndex) => (
-          <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap', verticalAlign: 'top' }}>
-            {word.split("").map((char, charIndex) => {
-              const currentGlobalIndex = globalCharIndex++;
-              return (
-                <Motion.span
-                  custom={currentGlobalIndex}
-                  key={charIndex}
-                  variants={alternatingCharVariants}
-                  style={{ display: 'inline-block' }}
-                >
-                  {char}
-                </Motion.span>
-              );
-            })}
-            <span style={{ display: 'inline-block' }}>&nbsp;</span>
-          </span>
-        ))}
-      </Motion.span>
-    );
-  };
-
-  const typingSplitText = (text, staggerDelay = 0.08, initialDelay = 0) => {
-    const typingCharVariants = {
-      hidden: { opacity: 0, y: 10 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 0.8,
-          ease: [0.16, 1, 0.3, 1], // Smooth subtle slide-fade
-        },
-      },
-    };
-
-    return (
-      <Motion.span
-        variants={{
-          hidden: {},
-          visible: { transition: { staggerChildren: staggerDelay, delayChildren: initialDelay } }
-        }}
-        style={{ display: 'inline-block' }}
-      >
-        {text.split(" ").map((word, wordIndex) => (
-          <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap', verticalAlign: 'top' }}>
-            {word.split("").map((char, charIndex) => (
-              <Motion.span
-                key={charIndex}
-                variants={typingCharVariants}
-                style={{ display: 'inline-block' }}
-              >
-                {char}
-              </Motion.span>
-            ))}
-            {wordIndex < text.split(" ").length - 1 && (
-              <span style={{ display: 'inline-block' }}>&nbsp;</span>
-            )}
-          </span>
-        ))}
-      </Motion.span>
-    );
-  };
-
   return (
-    // reducedMotion="user": the CSS media-query kill-switch cannot stop
-    // framer-motion's JS-driven transforms, so opt in at the source
-    <MotionConfig reducedMotion="user">
-    <Motion.div
-      id="hero"
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-    >
-      <div className="grid-bg"></div>
-      <div className="hero-glow"></div>
+    <section id="hero" aria-labelledby="hero-title">
+      <HeroBackdrop />
 
-      <Motion.p className="hero-tag" variants={itemVariants}>
-        ● Available for work
-      </Motion.p>
+      <div className="hero-inner">
+        <p className="hero-badge h-in" style={{ '--d': 0 }}>
+          <picture>
+            <source type="image/webp" srcSet="/img/avatar-96.webp 1x, /img/avatar-192.webp 2x" />
+            <img
+              className="hero-avatar"
+              src="/img/avatar-192.jpg"
+              alt="Portrait of Muhammed Midlaj"
+              width="32"
+              height="32"
+              fetchPriority="high"
+            />
+          </picture>
+          <span className="hero-badge-dot" aria-hidden="true" />
+          Available for work · India &amp; UAE
+        </p>
 
-      {/* aria-label carries the real headline — the per-character spans
-          below would otherwise be announced letter by letter */}
-      <h1 className="hero-title" aria-label="Building the web of tomorrow.">
-        <span style={{ display: 'block' }} aria-hidden="true">
-          {alternatingSplitText("Building the", 0.04, 0.8)}
-        </span>
-        <span className="line2" style={{ display: 'block' }} aria-hidden="true">
-          {alternatingSplitText("web of", 0.04, 0.8)}
-        </span>
-        <span style={{ display: 'block' }} aria-hidden="true">
-          {typingSplitText("tomorrow.", 0.08, 2.4)}
-        </span>
-      </h1>
+        <h1 id="hero-title" className="hero-title">
+          <span className="hero-kicker h-in" style={{ '--d': 1 }}>
+            Hi, I&rsquo;m Muhammed Midlaj&nbsp;&mdash;
+          </span>{' '}
+          <span className="hero-role h-in" style={{ '--d': 2 }}>
+            MERN Stack <em>Developer</em>
+          </span>
+        </h1>
 
-      <Motion.p
-        className="hero-desc"
-        variants={itemVariants}
-        aria-label="I'm a web developer crafting performant, accessible, and beautiful digital experiences — from pixel to production."
-      >
-        {splitText("I'm a web developer crafting performant, accessible, and beautiful digital experiences — from pixel to production.", 0.015)}
-      </Motion.p>
+        <p className="hero-sub h-in" style={{ '--d': 4 }}>
+          I build fast, accessible web apps for clients in India and the
+          UAE&nbsp;&mdash; from database to deployed UI.
+        </p>
 
-      <Motion.div className="hero-cta" variants={itemVariants}>
-        <a href="#projects" className="btn-primary">View My Work</a>
-        <a href="#contact" className="btn-secondary">Get In Touch</a>
-      </Motion.div>
-    </Motion.div>
-    </MotionConfig>
+        <div className="hero-cta h-in" style={{ '--d': 5 }}>
+          <a href="#projects" className="btn-primary">
+            View my work <span aria-hidden="true">→</span>
+          </a>
+          <a href="#contact" className="btn-secondary">Let&rsquo;s talk</a>
+        </div>
+      </div>
+
+      <div className="hero-work h-in" style={{ '--d': 7 }}>
+        <ul className="hero-strip" aria-label="Selected client work">
+          {featured.map((p) => (
+            <li key={p.id} className="hero-card">
+              <a href={p.link} target="_blank" rel="noopener noreferrer">
+                <ProjectImage
+                  image={p.image}
+                  alt={`Screenshot of the ${p.title} website`}
+                  sizes="(max-width: 700px) 78vw, 380px"
+                />
+                <span className="hero-card-label">
+                  {p.title} <span aria-hidden="true">↗</span>
+                  <span className="visually-hidden"> (opens in a new tab)</span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="hero-proof">
+          <span>1.5 yrs experience</span>
+          <span>10+ clients</span>
+          <span>{featured.length} live client sites</span>
+        </p>
+      </div>
+    </section>
   );
-
 };
 
 export default Hero;
