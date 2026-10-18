@@ -1,6 +1,4 @@
 import './index.css';
-import React, { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
 import Navbar from './components/Layout/Navbar';
 import Footer from './components/Layout/Footer';
 import CustomCursor from './components/Layout/CustomCursor';
@@ -14,35 +12,30 @@ import Preloader from './components/UI/Preloader';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  useScrollReveal([loading]);
+  useScrollReveal();
 
   return (
     <>
-      <AnimatePresence>
-        {loading && <Preloader key="preloader" onFinish={() => setLoading(false)} />}
-      </AnimatePresence>
+      {/* decorative intro curtain — renders over the page, never gates it */}
+      <Preloader />
 
-      {!loading && (
-        <div className="app">
-          <a className="skip-link" href="#main">Skip to main content</a>
-          <CustomCursor />
-          <WhatsAppButton />
-          <Navbar />
-          <main id="main">
-            <Hero />
-            <div className="divider"></div>
-            <About />
-            <div className="divider"></div>
-            <Skills />
-            <div className="divider"></div>
-            <Projects />
-            <div className="divider"></div>
-            <Contact />
-          </main>
-          <Footer />
-        </div>
-      )}
+      <div className="app">
+        <a className="skip-link" href="#main">Skip to main content</a>
+        <CustomCursor />
+        <WhatsAppButton />
+        <Navbar />
+        <main id="main">
+          <Hero />
+          <About />
+          <div className="divider"></div>
+          <Skills />
+          <div className="divider"></div>
+          <Projects />
+          <div className="divider"></div>
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
