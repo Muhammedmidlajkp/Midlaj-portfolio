@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import { Fragment, useState } from 'react';
 import './ProfileCard.css';
-// optimized export (800w JPEG, ~54 KB) of the original 6.3 MB PNG
-import profileImg from '../../assets/profile.jpg';
 
 const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
   const [imgError, setImgError] = useState(false);
@@ -12,15 +10,19 @@ const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
         <div className="profile-card-wrapper">
           <div className="port-card" id="card">
             {!imgError ? (
-              <img
-                src={profileImg}
-                alt={`Portrait of ${name}`}
-                id="pimg"
-                width="800"
-                height="1067"
-                fetchPriority="high"
-                onError={() => setImgError(true)}
-              />
+              <picture>
+                <source type="image/webp" srcSet="/img/profile-480.webp 480w, /img/profile-800.webp 800w" sizes="(max-width: 480px) 280px, 340px" />
+                <img
+                  src="/img/profile-800.jpg"
+                  alt={`Portrait of ${name}`}
+                  id="pimg"
+                  width="800"
+                  height="1067"
+                  loading="lazy"
+                  decoding="async"
+                  onError={() => setImgError(true)}
+                />
+              </picture>
             ) : (
               <div className="fallback-avatar">
                 <svg width="80" height="80" viewBox="0 0 80 80">
@@ -35,22 +37,22 @@ const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
 
             <div className="corner-svg tl">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M2 12 L2 2 L12 2" stroke="#c8f000" strokeWidth="2" fill="none"/>
+                <path d="M2 12 L2 2 L12 2" stroke="currentColor" strokeWidth="2" fill="none"/>
               </svg>
             </div>
             <div className="corner-svg tr">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M2 12 L2 2 L12 2" stroke="#c8f000" strokeWidth="2" fill="none"/>
+                <path d="M2 12 L2 2 L12 2" stroke="currentColor" strokeWidth="2" fill="none"/>
               </svg>
             </div>
             <div className="corner-svg bl">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M2 12 L2 2 L12 2" stroke="#c8f000" strokeWidth="2" fill="none"/>
+                <path d="M2 12 L2 2 L12 2" stroke="currentColor" strokeWidth="2" fill="none"/>
               </svg>
             </div>
             <div className="corner-svg br">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M2 12 L2 2 L12 2" stroke="#c8f000" strokeWidth="2" fill="none"/>
+                <path d="M2 12 L2 2 L12 2" stroke="currentColor" strokeWidth="2" fill="none"/>
               </svg>
             </div>
 
@@ -59,10 +61,10 @@ const ProfileCard = ({ name = "Muhammed Midlaj", role = "Web Developer" }) => {
                 <div className="label">// {role}</div>
                 <div className="name">
                   {name.split(' ').map((part, index) => (
-                    <React.Fragment key={index}>
+                    <Fragment key={index}>
                       {part}
                       {index === 0 && <br />}
-                    </React.Fragment>
+                    </Fragment>
                   ))}
                   .
                 </div>
