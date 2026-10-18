@@ -1,6 +1,9 @@
 // Decorative hero atmosphere: a "skyline of code" — two layers of stepped
 // bars, like a commit graph seen from the side — under a lime glow and the
 // masked grid. Pure SVG + CSS: no images, no runtime cost beyond paint.
+// On capable devices a WebGL Threads layer drifts behind the skyline.
+
+import HeroThreads from './HeroThreads';
 
 const W = 1440;
 const H = 320;
@@ -33,6 +36,7 @@ const HeroBackdrop = () => (
   <div className="hero-backdrop" aria-hidden="true">
     <div className="hero-sky" />
     <div className="hero-grid" />
+    <HeroThreads />
     <svg
       className="hero-ridge hero-ridge--back"
       viewBox={`0 0 ${W} ${H}`}

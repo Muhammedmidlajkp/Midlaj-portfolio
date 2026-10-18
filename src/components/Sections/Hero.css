@@ -41,6 +41,39 @@
   -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 40%, black 30%, transparent 100%);
 }
 
+/* WebGL threads band (HeroThreads): lower part of the hero, behind the
+   skyline, faded at both edges so it never reaches the headline */
+.hero-threads {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 35%;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 80%, transparent 100%);
+}
+
+.hero-threads.is-shown {
+  opacity: 1;
+}
+
+/* phones: a quiet floor texture under the proof row */
+.hero-threads--mobile {
+  top: auto;
+  height: 40svh;
+}
+
+/* scrim behind the text column keeps copy contrast over the lines */
+.hero-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 42% 30% at 50% 34%, rgba(8, 8, 8, 0.6), transparent);
+}
+
 .hero-ridge {
   position: absolute;
   left: 0;
