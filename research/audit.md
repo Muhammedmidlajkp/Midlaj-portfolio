@@ -154,7 +154,7 @@ Bundle: JS 368 KB to 211 KB (gzip 120 to 67 KB) after dropping framer-motion and
 **Checks run on the production build:** no horizontal overflow from 320 to 1920px; every control reachable by keyboard with a visible focus ring; menu focus trap, Escape and focus return; reduced motion respected (preloader hidden, entrance animation neutralised); custom cursor only with a mouse; zero console errors.
 
 **Known and left alone**
-- Lighthouse still lists about 90 KiB of image savings: the featured project screenshots ship at 640 and 1280px with nothing in between. A 960px variant would trim this.
+- Lighthouse still lists about 57 KiB of possible image savings (down from 96 KiB after adding 960px variants of the three featured screenshots); the rest is the 1280px fallback and Traveezy at 1024px.
 - Hover states were checked by code and in screenshots of focus/menu, not exhaustively by hand.
 - Lighthouse was run on localhost against a simulated slow-4G profile; re-run it on the Vercel URL after deploy for the real number.
 - Nizan Tech and the AI Voice Calling Agent still have no screenshots (waiting on you).

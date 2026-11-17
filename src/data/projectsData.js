@@ -8,7 +8,7 @@ export const projects = [
     title: "Weddesy",
     desc: "An AI-powered wedding planning platform for Kochi that connects couples with services, consultations and specialists, with a guest mode and a story-first onboarding.",
     tags: ["Flutter", "Dart", "Web App", "AI"],
-    image: { name: 'weddesy', widths: [640, 1280], width: 1280, height: 800 },
+    image: { name: 'weddesy', widths: [640, 960, 1280], width: 1280, height: 800 },
     link: "https://weddesy.nizantech.com/",
   },
   {
@@ -25,7 +25,7 @@ export const projects = [
     title: "Roots Business",
     desc: "A premium business website for a Bangalore apparel and denim manufacturer, showcasing its nine-stage production process, product categories and an enquiry form for brands.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "Client Project"],
-    image: { name: 'rootsbusiness', widths: [640, 1280], width: 1280, height: 800 },
+    image: { name: 'rootsbusiness', widths: [640, 960, 1280], width: 1280, height: 800 },
     link: "https://www.rootsbusiness.in/",
   },
   {
@@ -51,7 +51,7 @@ export const projects = [
     title: "TrustCore Contracting",
     desc: "A professional corporate website for a UAE-based facility management company, featuring service showcases, industry pages, civil defense compliance highlights, and 24/7 emergency response information.",
     tags: ["React", "Vite", "CSS", "Responsive Design"],
-    image: { name: 'trustcore', widths: [640, 1280], width: 1280, height: 608 },
+    image: { name: 'trustcore', widths: [640, 960, 1280], width: 1280, height: 608 },
     link: "https://www.trustcorecontracting.ae/",
   },
   {
