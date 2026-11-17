@@ -44,8 +44,9 @@
 }
 
 .logo {
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: var(--weight-display);
   letter-spacing: -0.02em;
   color: #fff;
   cursor: pointer;
@@ -97,8 +98,8 @@
   border-radius: 100px;
   text-decoration: none;
   font-size: 0.85rem;
-  font-weight: 700;
-  font-family: var(--font-display);
+  font-weight: 600;
+  font-family: var(--font-sans);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -234,8 +235,8 @@
 .mobile-nav-links a {
   text-decoration: none;
   color: #fff;
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: var(--step-2);
+  font-weight: var(--weight-display);
   font-family: var(--font-display);
   transition: color 0.3s ease, transform 0.3s ease;
 }
@@ -252,8 +253,8 @@
   border-radius: 100px;
   text-decoration: none;
   font-size: 1rem;
-  font-weight: 800;
-  font-family: var(--font-display);
+  font-weight: 600;
+  font-family: var(--font-sans);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 0 20px rgba(200, 242, 80, 0.2);
 }

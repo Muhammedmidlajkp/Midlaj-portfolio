@@ -118,9 +118,9 @@
 }
 
 .name-block .name {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 600;
   color: #ffffff;
   line-height: 1.1;
 }

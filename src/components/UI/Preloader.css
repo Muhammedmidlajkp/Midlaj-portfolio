@@ -12,9 +12,9 @@
 
 .preloader-mark {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: var(--weight-display);
   font-size: clamp(2rem, 6vw, 3.2rem);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   color: var(--ink);
   animation: mark-out 0.3s ease-in 0.15s both;
 }

@@ -59,9 +59,9 @@
 }
 
 .project-title {
-  font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-size: var(--step-2);
+  font-weight: var(--weight-display);
+  letter-spacing: -0.01em;
   margin-bottom: 12px;
 }
 
@@ -142,9 +142,9 @@
 
 .pv-initials {
   font-family: var(--font-display);
-  font-weight: 800;
+  font-weight: var(--weight-display);
   font-size: clamp(2.6rem, 6vw, 3.6rem);
-  letter-spacing: -0.05em;
+  letter-spacing: -0.02em;
   line-height: 1;
   color: var(--accent);
 }

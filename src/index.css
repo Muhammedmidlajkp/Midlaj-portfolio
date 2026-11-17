@@ -22,9 +22,29 @@
   /* raised from #666 (≈3.5:1 on the dark backgrounds — fails WCAG AA) to
      #9b9b9b (≈7:1 on #080808, ≈6.6:1 on #141414) so body copy passes 1.4.3 */
   --muted: #9b9b9b;
-  --font-display: 'Syne', sans-serif;
-  --font-mono: 'DM Mono', monospace;
-  --font-serif: 'Instrument Serif', Georgia, serif;
+  /* TYPE SYSTEM — two voices plus a utility mono.
+     display: the designer's voice (headlines, names, numerals). Instrument
+              Serif only ships a 400 weight, so never set bold on it.
+     sans:    the builder's voice (body, buttons, navigation, UI).
+     mono:    status and code-like details only. */
+  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --weight-display: 400;
+
+  /* Fluid type scale: each step is smooth between a 360px and a 1440px
+     viewport. Headlines use the high steps; text uses 0 and -1. */
+  --step--1: clamp(0.8rem, 0.77rem + 0.1vw, 0.875rem);
+  --step-0: clamp(1rem, 0.96rem + 0.15vw, 1.0625rem);
+  --step-1: clamp(1.25rem, 1.1rem + 0.55vw, 1.6rem);
+  --step-2: clamp(1.75rem, 1.35rem + 1.4vw, 2.6rem);
+  --step-3: clamp(2.5rem, 1.6rem + 3vw, 4.5rem);
+  --step-4: clamp(3.1rem, 1.5rem + 6vw, 7rem);
+  --step-5: clamp(4.2rem, 1rem + 12vw, 10rem);
+
+  /* reading measure and the one structural rule used site-wide */
+  --measure: 62ch;
+  --hairline: 1px solid var(--line-strong);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   /* horizontal page gutter shared by every section */
   --pad-x: clamp(24px, 5vw, 60px);
@@ -57,7 +77,18 @@ html {
 body {
   background: var(--black);
   color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* headlines speak in the display voice; component rules set size only */
+h1,
+h2,
+h3 {
   font-family: var(--font-display);
+  font-weight: var(--weight-display);
 }
 
 /* The custom cursor replaces the native one ONLY while CustomCursor is
@@ -135,9 +166,9 @@ body::before {
   gap: 10px;
   padding: 16px 32px;
   border-radius: 999px;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 0.9rem;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-decoration: none;
   transition: transform 0.25s var(--ease-out), border-color 0.2s, color 0.2s;
 }
@@ -145,7 +176,7 @@ body::before {
 .btn-primary {
   background: var(--accent);
   color: #000;
-  font-weight: 700;
+  font-weight: 600;
   border: none;
   cursor: pointer;
 }
@@ -253,10 +284,10 @@ body::before {
 }
 
 .section-title {
-  font-size: clamp(2rem, 8vw, 3.5rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.05;
+  font-size: var(--step-3);
+  font-weight: var(--weight-display);
+  letter-spacing: -0.015em;
+  line-height: 1;
   margin-bottom: 48px;
 }
 
