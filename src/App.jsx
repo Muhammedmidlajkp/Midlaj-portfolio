@@ -29,9 +29,7 @@ function App() {
           <About />
           <div className="divider"></div>
           <Skills />
-          <div className="divider"></div>
           <Projects />
-          <div className="divider"></div>
           <Contact />
         </main>
         <Footer />

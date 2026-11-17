@@ -1,9 +1,10 @@
 // image: basename of the responsive set in public/img (see scripts/img.mjs).
+// featured: shown large at the top of Projects; the rest appear in the index list.
 // widths lists the generated WebP sizes; the largest also exists as JPEG.
 export const projects = [
   {
     id: 'weddesy',
-    num: "01",
+    featured: true,
     title: "Weddesy",
     desc: "An AI-powered wedding planning platform for Kochi that connects couples with services, consultations and specialists, with a guest mode and a story-first onboarding.",
     tags: ["Flutter", "Dart", "Web App", "AI"],
@@ -12,7 +13,6 @@ export const projects = [
   },
   {
     id: 'tayoki',
-    num: "02",
     title: "Tayoki",
     desc: "A kids' denim fashion storefront with a Seoul-inspired design, product collections with discounts, wishlist and cart, and a newsletter club, built as the customer-facing side of the shop.",
     tags: ["React", "CSS", "E-commerce", "Responsive Design"],
@@ -21,7 +21,7 @@ export const projects = [
   },
   {
     id: 'roots-business',
-    num: "03 — Client Work",
+    featured: true,
     title: "Roots Business",
     desc: "A premium business website for a Bangalore apparel and denim manufacturer, showcasing its nine-stage production process, product categories and an enquiry form for brands.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "Client Project"],
@@ -30,7 +30,6 @@ export const projects = [
   },
   {
     id: 'bizbook-consultancy',
-    num: "04 — Client Work",
     title: "BizBook Consultancy",
     desc: "A corporate website for an Abu Dhabi accounting, tax and business consultancy, with service pages, process and industry sections, FAQs and consultation booking.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "Client Project"],
@@ -39,7 +38,7 @@ export const projects = [
   },
   {
     id: 'traveezy',
-    num: "05",
+    featured: true,
     title: "Traveezy",
     desc: "A full-stack travel platform featuring AI-powered itineraries, seamless Google OAuth authentication, secure Razorpay integration, and real-time interactions.",
     tags: ["Node.js", "Express", "MongoDB", "EJS", "Razorpay", "REST APIs"],
@@ -48,7 +47,7 @@ export const projects = [
   },
   {
     id: 'trustcore',
-    num: "06",
+    featured: true,
     title: "TrustCore Contracting",
     desc: "A professional corporate website for a UAE-based facility management company, featuring service showcases, industry pages, civil defense compliance highlights, and 24/7 emergency response information.",
     tags: ["React", "Vite", "CSS", "Responsive Design"],
@@ -57,7 +56,6 @@ export const projects = [
   },
   {
     id: 'makeovers',
-    num: "07",
     title: "Team N Makeovers",
     desc: "A luxury bridal beauty website for a South Asian makeup and hairstyling studio, featuring service packages, portfolio galleries, and online booking for weddings and events.",
     tags: ["React", "Vite", "CSS", "Responsive Design"],
@@ -66,7 +64,6 @@ export const projects = [
   },
   {
     id: 'nizan-tech',
-    num: "08",
     title: "Nizan Tech",
     desc: "A real-time project tracking application featuring sprint management, daily task planning, employee productivity monitoring, and WebSocket-based activity logging.",
     tags: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
@@ -75,7 +72,6 @@ export const projects = [
   },
   {
     id: 'voice-agent',
-    num: "09",
     title: "AI Voice Calling Agent",
     desc: "An automated conversational AI assistant capable of handling interactive phone calls, executing custom backend workflows, and processing real-time responses.",
     tags: ["n8n", "Node.js", "AI APIs", "Webhooks"],

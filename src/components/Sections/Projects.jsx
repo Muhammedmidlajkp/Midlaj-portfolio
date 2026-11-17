@@ -2,72 +2,94 @@ import { projects } from '../../data/projectsData';
 import ProjectImage from '../UI/ProjectImage';
 import './Projects.css';
 
-// Projects without a screenshot get a typographic panel instead of an
-// empty box: initials over the tech tags, in the site's own visual language.
-const Placeholder = ({ project }) => {
-  const initials = project.title
-    .split(' ')
-    .map((w) => w[0])
-    .join('')
-    .slice(0, 2);
-  return (
-    <div className="project-visual project-visual-placeholder" aria-hidden="true">
-      <span className="pv-initials">{initials}</span>
-      <span className="pv-stack">{project.tags.slice(0, 3).join(' · ')}</span>
-    </div>
-  );
-};
+// Tags that say how the site was made, not what it is built with.
+const NOT_TECH = ['Client Project', 'Responsive Design'];
+
+const techOf = (project) => project.tags.filter((t) => !NOT_TECH.includes(t));
+const isClient = (project) => project.tags.includes('Client Project');
+
+const NewTab = ({ title }) => (
+  <span className="visually-hidden"> {title} (opens in a new tab)</span>
+);
+
+const ArrowOut = () => (
+  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M4.5 11.5l7-7M5.5 4.5h6v6" />
+  </svg>
+);
 
 const Projects = () => {
+  const featured = projects.filter((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
+
   return (
     <section id="projects">
-      <p className="section-label reveal">// Projects</p>
-      <h2 className="section-title reveal reveal-delay-1">Selected<br />work.</h2>
-      <div className="projects-grid">
-        {projects.map((project, index) => {
-          const isFeatured = index === 0;
+      <div className="projects-head">
+        <h2 className="section-title">Selected work</h2>
+        <p className="projects-count">{projects.length} projects</p>
+      </div>
 
-          const visual = project.image ? (
-            <div className="project-visual">
+      <div className="features">
+        {featured.map((project, index) => (
+          <article key={project.id} id={`project-${project.id}`} className="feature">
+            {/* the image repeats the title link, so it is skipped by keyboard
+                and assistive tech */}
+            <a
+              className="feature-media"
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              tabIndex={-1}
+              aria-hidden="true"
+            >
               <ProjectImage
                 image={project.image}
-                alt={`Screenshot of the ${project.title} website`}
-                className="project-image"
-                sizes={isFeatured ? '(max-width: 900px) 90vw, 540px' : '(max-width: 900px) 90vw, 560px'}
+                alt=""
+                className="feature-image"
+                eager={index === 0}
+                sizes="(max-width: 900px) 92vw, 760px"
               />
-            </div>
-          ) : (
-            <Placeholder project={project} />
-          );
+            </a>
 
-          return (
-            <article
-              key={project.id}
-              id={`project-${project.id}`}
-              className={`project-card reveal reveal-delay-${(index % 3) + 1}`}
-            >
-              {/* non-featured cards show the visual on top, text below;
-                  the featured card keeps its side-by-side layout */}
-              {!isFeatured && visual}
-              <div>
-                <p className="project-num">{project.num}</p>
-                <h3 className="project-title">{project.title}</h3>
-                <p className="project-desc">{project.desc}</p>
-                <div className="project-tags">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="tag">{tag}</span>
-                  ))}
-                </div>
-                <a className="project-link" href={project.link} target="_blank" rel="noopener noreferrer">
-                  View Project <span aria-hidden="true">→</span>
-                  <span className="visually-hidden"> {project.title} (opens in a new tab)</span>
-                </a>
-              </div>
-              {isFeatured && visual}
-            </article>
-          );
-        })}
+            <div className="feature-body">
+              {isClient(project) && <p className="feature-kind">Client work</p>}
+              <h3 className="feature-title">{project.title}</h3>
+              <p className="feature-desc">{project.desc}</p>
+              <p className="feature-tech">{techOf(project).join(', ')}</p>
+              <a
+                className="feature-link"
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View live site
+                <ArrowOut />
+                <NewTab title={project.title} />
+              </a>
+            </div>
+          </article>
+        ))}
       </div>
+
+      <h3 className="index-title">More projects</h3>
+      <ul className="index">
+        {rest.map((project) => (
+          <li key={project.id} id={`project-${project.id}`}>
+            <a className="row" href={project.link} target="_blank" rel="noopener noreferrer">
+              <span className="row-name">
+                <span className="row-title">{project.title}</span>
+                {isClient(project) && <span className="row-kind">Client work</span>}
+              </span>
+              <span className="row-desc">{project.desc}</span>
+              <span className="row-tech">{techOf(project).join(', ')}</span>
+              <span className="row-go">
+                <ArrowOut />
+              </span>
+              <NewTab title={project.title} />
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 };
