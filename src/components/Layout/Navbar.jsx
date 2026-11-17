@@ -6,7 +6,6 @@ import './Navbar.css';
 // as the sections in App.jsx.
 const LINKS = [
   { id: 'about', label: 'About' },
-  { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ];

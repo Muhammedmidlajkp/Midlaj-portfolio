@@ -5,7 +5,6 @@ import CustomCursor from './components/Layout/CustomCursor';
 import WhatsAppButton from './components/UI/WhatsAppButton';
 import Hero from './components/Sections/Hero';
 import About from './components/Sections/About';
-import Skills from './components/Sections/Skills';
 import Projects from './components/Sections/Projects';
 import Contact from './components/Sections/Contact';
 import Preloader from './components/UI/Preloader';
@@ -27,8 +26,6 @@ function App() {
         <main id="main">
           <Hero />
           <About />
-          <div className="divider"></div>
-          <Skills />
           <Projects />
           <Contact />
         </main>
