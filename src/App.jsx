@@ -8,10 +8,8 @@ import About from './components/Sections/About';
 import Projects from './components/Sections/Projects';
 import Contact from './components/Sections/Contact';
 import Preloader from './components/UI/Preloader';
-import { useScrollReveal } from './hooks/useScrollReveal';
 
 function App() {
-  useScrollReveal();
 
   return (
     <>
