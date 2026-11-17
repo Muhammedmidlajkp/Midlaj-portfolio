@@ -5,6 +5,10 @@ export const site = {
   role: 'MERN Stack Developer',
   email: 'midlaj2636@gmail.com',
   whatsapp: '919746927146',
+  // shown beside the live clock in the hero
+  location: 'India',
+  timeZone: 'Asia/Kolkata',
+  timeZoneLabel: 'IST',
   socials: [
     { label: 'GitHub', href: 'https://github.com/Muhammedmidlajkp' },
     { label: 'LinkedIn', href: 'https://www.linkedin.com/in/muhammed-midlaj-kp/' },
