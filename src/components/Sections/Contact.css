@@ -73,19 +73,6 @@
   color: var(--accent);
 }
 
-/* visually hidden, available to screen readers */
-.visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
 .contact-form .btn-primary {
   width: 100%;
   margin-top: 10px;
@@ -143,6 +130,7 @@
 
 .social-link {
   padding: 12px 24px;
+  border-radius: 999px;
   border: 1px solid var(--border);
   color: var(--muted);
   text-decoration: none;

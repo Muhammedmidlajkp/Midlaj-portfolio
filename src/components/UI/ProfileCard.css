@@ -28,6 +28,12 @@
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+.port-card picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .port-card img {
   width: 100%;
   height: 100%;
@@ -61,6 +67,7 @@
 
 .corner-svg {
   position: absolute;
+  color: var(--accent);
   width: 24px;
   height: 24px;
   z-index: 2;
@@ -77,17 +84,17 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #c8f000;
+  background: var(--accent);
   top: 50%;
   right: -20px;
   transform: translateY(-50%);
-  box-shadow: 0 0 0 2px rgba(200,240,0,0.25);
+  box-shadow: 0 0 0 2px rgba(200,242,80,0.25);
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 2px rgba(200,240,0,0.25); }
-  50% { box-shadow: 0 0 0 5px rgba(200,240,0,0.15); }
+  0%, 100% { box-shadow: 0 0 0 2px rgba(200,242,80,0.25); }
+  50% { box-shadow: 0 0 0 5px rgba(200,242,80,0.15); }
 }
 
 .badge {
@@ -102,16 +109,16 @@
 }
 
 .name-block .label {
-  font-family: 'Space Grotesk', monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.15em;
-  color: #c8f000;
+  color: var(--accent);
   text-transform: uppercase;
   margin-bottom: 4px;
 }
 
 .name-block .name {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 700;
   color: #ffffff;
@@ -119,15 +126,15 @@
 }
 
 .status {
-  font-family: 'Space Grotesk', monospace;
+  font-family: var(--font-mono);
   font-size: 10px;
-  color: #c8f000;
+  color: var(--accent);
   letter-spacing: 0.1em;
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(200,240,0,0.1);
-  border: 1px solid rgba(200,240,0,0.3);
+  background: rgba(200,242,80,0.1);
+  border: 1px solid rgba(200,242,80,0.3);
   padding: 4px 10px;
   border-radius: 20px;
 }
@@ -137,7 +144,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #c8f000;
+  background: var(--accent);
   display: inline-block;
 }
 
@@ -145,7 +152,7 @@
   position: absolute;
   left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(200,240,0,0.3), transparent);
+  background: linear-gradient(90deg, transparent, rgba(200,242,80,0.3), transparent);
   animation: scan 4s linear infinite;
   pointer-events: none;
   z-index: 2;
@@ -163,10 +170,10 @@
   right: -38px;
   top: 50%;
   transform: translateY(-50%) rotate(90deg);
-  font-family: 'Space Grotesk', monospace;
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.18em;
-  color: rgba(200,240,0,0.5);
+  color: rgba(200,242,80,0.5);
   text-transform: uppercase;
   white-space: nowrap;
 }

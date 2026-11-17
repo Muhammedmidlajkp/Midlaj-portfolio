@@ -1,47 +1,58 @@
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 10000;
-  mix-blend-mode: difference;
-  will-change: transform;
-}
-
+/* Both layers are positioned by JS transforms only (no layout); they stay
+   hidden unless CustomCursor is active and the pointer is in the window. */
+.cursor-dot,
 .cursor-ring {
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  border: 1.5px solid var(--accent);
-  border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
-  opacity: 0.5;
-  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  transition: opacity 0.2s;
   will-change: transform;
 }
 
-.cursor-ring.hover {
-  width: 60px;
-  height: 60px;
-  background-color: rgba(200, 242, 80, 0.1);
-  border-color: var(--accent);
+.has-custom-cursor.cursor-visible .cursor-dot,
+.has-custom-cursor.cursor-visible .cursor-ring {
   opacity: 1;
 }
 
-/* hide on small viewports AND on any device without a fine pointer
-   (touch tablets/laptops), matching the cursor:none scope in index.css */
-@media (max-width: 900px), (hover: none), (pointer: coarse) {
-  .cursor-dot, .cursor-ring {
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  z-index: 10000;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  z-index: 9999;
+}
+
+/* the visible ring scales on hover — transform, never width/height */
+.cursor-ring-shape {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.5;
+  transition: transform 0.3s var(--ease-out), opacity 0.3s, background-color 0.3s;
+}
+
+.cursor-ring.hover .cursor-ring-shape {
+  transform: scale(1.65);
+  opacity: 1;
+  background-color: rgba(200, 242, 80, 0.1);
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 900px) {
+  .cursor-dot,
+  .cursor-ring {
     display: none;
-  }
-  body {
-    cursor: auto;
   }
 }

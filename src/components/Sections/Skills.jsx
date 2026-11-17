@@ -1,4 +1,3 @@
-import React from 'react';
 import { skillGroups } from '../../data/skillsData';
 import './Skills.css';
 

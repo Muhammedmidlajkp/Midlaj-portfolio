@@ -1,13 +1,12 @@
-import React from 'react';
+import { site } from '../../data/site';
 import './Footer.css';
 
 const FOOTER_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
-  { label: 'Email', href: 'mailto:midlaj2636@gmail.com' },
-  { label: 'GitHub', href: 'https://github.com/Muhammedmidlajkp', external: true },
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/muhammed-midlaj-kp/', external: true },
+  { label: 'Email', href: `mailto:${site.email}` },
+  ...site.socials.slice(0, 2).map((s) => ({ ...s, external: true })),
 ];
 
 const Footer = () => {
@@ -37,7 +36,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Muhammed Midlaj. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Muhammed Midlaj. All rights reserved.</p>
           <p>Designed &amp; built with React.</p>
         </div>
       </div>
