@@ -19,7 +19,6 @@ function App() {
       <div className="app">
         <a className="skip-link" href="#main">Skip to main content</a>
         <CustomCursor />
-        <WhatsAppButton />
         <Navbar />
         <main id="main">
           <Hero />
@@ -28,6 +27,8 @@ function App() {
           <Contact />
         </main>
         <Footer />
+        {/* fixed-position, so it sits last in the DOM and in tab order */}
+        <WhatsAppButton />
       </div>
     </>
   );

@@ -30,7 +30,7 @@ const Projects = () => {
       </div>
 
       <div className="features">
-        {featured.map((project, index) => (
+        {featured.map((project) => (
           <article key={project.id} id={`project-${project.id}`} className="feature">
             {/* the image repeats the title link, so it is skipped by keyboard
                 and assistive tech */}
@@ -46,7 +46,6 @@ const Projects = () => {
                 image={project.image}
                 alt=""
                 className="feature-image"
-                eager={index === 0}
                 sizes="(max-width: 900px) 92vw, 760px"
               />
             </a>

@@ -1,4 +1,37 @@
-/* Google Fonts loaded via index.html for reliability */
+/* Fonts are self-hosted (latin subset, OFL-licensed) so first paint never
+   waits on a third-party request. Instrument Serif and Geist are preloaded
+   from index.html; DM Mono loads when the status text needs it. */
+@font-face {
+  font-family: 'Instrument Serif';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Geist';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/geist-latin-wght-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/dm-mono-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'DM Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/dm-mono-latin-500-normal.woff2') format('woff2');
+}
 
 *,
 *::before,

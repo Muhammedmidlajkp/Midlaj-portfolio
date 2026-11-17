@@ -3,7 +3,7 @@ import './CustomCursor.css';
 
 // only where a real mouse is in use and motion is welcome
 const QUERY = '(hover: hover) and (pointer: fine) and (min-width: 901px) and (prefers-reduced-motion: no-preference)';
-const INTERACTIVE = 'a, button, input, textarea, label, .skill-card, .project-card, [data-cursor]';
+const INTERACTIVE = 'a, button, input, textarea, label, [data-cursor]';
 
 const CustomCursor = () => {
   const dotRef = useRef(null);
