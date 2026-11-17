@@ -12,7 +12,7 @@ const Projects = () => {
           const isFeatured = index === 0;
 
           const visual = project.visual && (
-            typeof project.visual === 'string' && (project.visual.includes('.png') || project.visual.includes('.jpg') || project.visual.includes('.jpeg')) ? (
+            typeof project.visual === 'string' && (project.visual.includes('.png') || project.visual.includes('.jpg') || project.visual.includes('.jpeg') || project.visual.includes('.webp')) ? (
               <div className="project-visual">
                 <img
                   src={project.visual}
