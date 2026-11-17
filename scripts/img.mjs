@@ -10,6 +10,8 @@ const OUT = 'public/img';
 
 const jobs = [
   // project screenshots — 16:9-ish, shown at ≤ ~600px CSS width
+  { src: 'tayoki.png', name: 'tayoki', widths: [640, 1280] },
+  { src: 'weddesy.png', name: 'weddesy', widths: [640, 1280] },
   { src: 'rootsbusiness.png', name: 'rootsbusiness', widths: [640, 1280] },
   { src: 'bizbookconsultancy.png', name: 'bizbookconsultancy', widths: [640, 1280] },
   { src: 'traveezy.png', name: 'traveezy', widths: [640, 1024] },
