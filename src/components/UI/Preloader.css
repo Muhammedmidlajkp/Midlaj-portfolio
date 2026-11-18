@@ -7,7 +7,7 @@
   justify-content: center;
   background: var(--black);
   pointer-events: none;
-  animation: curtain-lift 0.55s cubic-bezier(0.76, 0, 0.24, 1) 0.2s both;
+  animation: curtain-lift 0.4s var(--ease-in-out) 0.1s both;
 }
 
 .preloader-mark {
@@ -16,7 +16,7 @@
   font-size: clamp(2rem, 6vw, 3.2rem);
   letter-spacing: -0.02em;
   color: var(--ink);
-  animation: mark-out 0.3s ease-in 0.15s both;
+  animation: mark-out 0.2s var(--ease-in-out) 0.05s both;
 }
 
 .preloader-mark span {

@@ -38,7 +38,7 @@ const LiveClock = () => {
 
   return (
     <p className="hero-clock">
-      {site.location}, <time>{time}</time> {site.timeZoneLabel}
+      {site.location}, <time dateTime={time}>{time}</time> {site.timeZoneLabel}
     </p>
   );
 };
@@ -81,7 +81,7 @@ const Hero = () => (
         I'm Muhammed Midlaj, a MERN stack developer. I design and build websites and web
         apps for clients in India and the UAE, from the interface to the database.
       </p>
-      <div className="hero-cta">
+      <div className="hero-cta" data-hide-fab>
         <a href="#projects" className="btn-primary">View selected work</a>
         <a href={`mailto:${site.email}`} className="hero-mail">Email me</a>
       </div>

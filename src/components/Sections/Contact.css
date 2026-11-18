@@ -3,11 +3,11 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: clamp(80px, 11vw, 150px) var(--pad-x) clamp(64px, 9vw, 120px);
+  padding: var(--space-section) var(--pad-x) var(--space-block);
 }
 
 .contact-title {
-  font-size: var(--step-2);
+  font-size: var(--step-3);
   line-height: 1;
   letter-spacing: -0.015em;
   margin-bottom: 20px;
@@ -87,4 +87,19 @@
   .contact-links a:hover {
     color: var(--accent);
   }
+}
+
+/* 44px targets and a press state */
+.copy-btn {
+  min-height: 44px;
+}
+
+.copy-btn:active {
+  transform: scale(0.96);
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }

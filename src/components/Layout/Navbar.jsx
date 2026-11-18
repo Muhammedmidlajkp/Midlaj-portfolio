@@ -50,6 +50,7 @@ const Navbar = () => {
   const scrolled = useScrolled();
   const toggleRef = useRef(null);
   const dialogRef = useRef(null);
+  const focusTarget = useRef(null); // id of the section a menu link is heading to
 
   const closeMenu = () => setIsMenuOpen(false);
   const currentLabel = LINKS.find((l) => l.id === active)?.label;
@@ -84,8 +85,20 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
-      // hand focus back to the control that opened the menu
-      toggle?.focus();
+      const target = focusTarget.current;
+      focusTarget.current = null;
+      if (target) {
+        // chose a section: move focus there so the next Tab continues from it
+        requestAnimationFrame(() => {
+          const el = document.getElementById(target);
+          if (!el) return;
+          el.setAttribute('tabindex', '-1');
+          el.focus({ preventScroll: true });
+        });
+      } else {
+        // closed without choosing: hand focus back to the control that opened it
+        toggle?.focus();
+      }
     };
   }, [isMenuOpen]);
 
@@ -144,7 +157,10 @@ const Navbar = () => {
                 <li key={l.id} style={{ '--i': i }}>
                   <a
                     href={`#${l.id}`}
-                    onClick={closeMenu}
+                    onClick={() => {
+                      focusTarget.current = l.id;
+                      closeMenu();
+                    }}
                     aria-current={active === l.id ? 'location' : undefined}
                   >
                     <span className="menu-num" aria-hidden="true">{pad(i + 1)}</span>

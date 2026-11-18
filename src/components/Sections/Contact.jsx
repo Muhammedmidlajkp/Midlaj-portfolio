@@ -43,7 +43,7 @@ const Contact = () => {
   const label = { idle: 'Copy email', copied: 'Copied', failed: 'Copy failed' }[status];
 
   return (
-    <section id="contact" aria-labelledby="contact-heading">
+    <section id="contact" aria-labelledby="contact-heading" data-hide-fab>
       <h2 id="contact-heading" className="contact-title">
         Let's build together.
       </h2>

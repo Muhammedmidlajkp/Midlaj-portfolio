@@ -47,7 +47,7 @@
 .cursor-ring.hover .cursor-ring-shape {
   transform: scale(1.65);
   opacity: 1;
-  background-color: rgba(200, 242, 80, 0.1);
+  background-color: rgb(var(--lime-rgb) / 0.1);
 }
 
 @media (hover: none), (pointer: coarse), (max-width: 900px) {

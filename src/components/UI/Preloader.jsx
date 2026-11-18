@@ -1,11 +1,21 @@
 import { useState } from 'react';
 import './Preloader.css';
 
-// A ~0.6s branded curtain that lifts off the already-rendered page.
-// It no longer gates mounting, so the hero paints (and LCP fires) with
-// the first frame; reduced-motion users never see it (see Preloader.css).
+const KEY = 'midlaj-intro-seen';
+
+// A short branded curtain that lifts off the already-rendered page. It never
+// gates mounting, plays once per browser session, and reduced-motion users
+// never see it (see Preloader.css).
+const seenBefore = () => {
+  try {
+    return sessionStorage.getItem(KEY) === '1';
+  } catch {
+    return false;
+  }
+};
+
 const Preloader = () => {
-  const [done, setDone] = useState(false);
+  const [done, setDone] = useState(seenBefore);
   if (done) return null;
 
   return (
@@ -13,7 +23,13 @@ const Preloader = () => {
       className="preloader"
       aria-hidden="true"
       onAnimationEnd={(e) => {
-        if (e.target === e.currentTarget) setDone(true);
+        if (e.target !== e.currentTarget) return;
+        try {
+          sessionStorage.setItem(KEY, '1');
+        } catch {
+          /* private mode: it simply plays again next time */
+        }
+        setDone(true);
       }}
     >
       <span className="preloader-mark">

@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
-  padding: clamp(80px, 11vw, 150px) var(--pad-x);
+  padding: var(--space-section) var(--pad-x);
 }
 
 .projects-head {

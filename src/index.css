@@ -10,6 +10,25 @@
 }
 
 @font-face {
+  font-family: 'Instrument Serif';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/instrument-serif-latin-400-italic.woff2') format('woff2');
+}
+
+/* Metric-matched fallback: while the serif loads, Times is scaled to its
+   narrow shapes so the hero does not reflow when the real font arrives. */
+@font-face {
+  font-family: 'Instrument Serif Fallback';
+  src: local('Times New Roman'), local('Times');
+  size-adjust: 88%;
+  ascent-override: 96%;
+  descent-override: 26%;
+  line-gap-override: 0%;
+}
+
+@font-face {
   font-family: 'Geist';
   font-style: normal;
   font-weight: 100 900;
@@ -42,16 +61,16 @@
 }
 
 :root {
-  --black: #080808;
-  --surface: #0f0f0f;
-  --card: #141414;
+  --black: #0a0a09;
+  --surface: #111110;
+  --card: #141412;
   --border: #222;
   --accent: #c8f250;
   --text: #e8e8e8;
   --ink: #f4f4ef;
   --ink-2: rgba(244, 244, 239, 0.72);
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.12);
+  --line: rgba(255, 255, 255, 0.1);
+  --line-strong: rgba(255, 255, 255, 0.16);
   /* raised from #666 (≈3.5:1 on the dark backgrounds — fails WCAG AA) to
      #9b9b9b (≈7:1 on #080808, ≈6.6:1 on #141414) so body copy passes 1.4.3 */
   --muted: #9b9b9b;
@@ -60,7 +79,7 @@
               Serif only ships a 400 weight, so never set bold on it.
      sans:    the builder's voice (body, buttons, navigation, UI).
      mono:    status and code-like details only. */
-  --font-display: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --font-display: 'Instrument Serif', 'Instrument Serif Fallback', Georgia, serif;
   --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'DM Mono', ui-monospace, monospace;
   --weight-display: 400;
@@ -79,6 +98,29 @@
   --measure: 62ch;
   --hairline: 1px solid var(--line-strong);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+
+  /* MOTION — one duration scale, two curves. Never hard-code a duration. */
+  --d-1: 150ms; /* colour, underline */
+  --d-2: 300ms; /* buttons, menu, cursor */
+  --d-3: 600ms; /* reveals */
+  --d-4: 1000ms; /* hero and large image reveals */
+
+  /* SURFACES AND PAPER — ink page, coal surfaces, one bone (paper) chapter */
+  --coal: #141412;
+  --coal-2: #1d1d1a;
+  --bone: #ecebe3;
+  --ink-on-paper: #121210;
+  --on-lime: #0a0a09;
+  --grey-700: #2a2a27;
+  --grey-600: #4a4a46;
+  --lime-rgb: 200 242 80;
+
+  /* SPACING — section, block and gap steps; replace ad-hoc clamps with these */
+  --space-section: clamp(88px, 10vw, 144px);
+  --space-block: clamp(48px, 6vw, 88px);
+  --space-gap: 32px;
+  --wrap: 1440px; /* page width including gutters: every section shares it */
   /* horizontal page gutter shared by every section */
   --pad-x: clamp(24px, 5vw, 60px);
   /* Force dark scrollbar in all browsers */
@@ -93,14 +135,17 @@
   background: var(--black);
 }
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: var(--grey-700);
   border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--grey-600);
 }
 
 html {
+  /* anchors land clear of the fixed header; no grey flash on tap */
+  scroll-padding-top: 96px;
+  -webkit-tap-highlight-color: transparent;
   scroll-behavior: smooth;
   /* overflow-x here (not on body) — body with overflow:hidden creates a
      compositing boundary that breaks backdrop-filter on fixed children */
@@ -122,6 +167,27 @@ h2,
 h3 {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
+  /* no one-word last lines */
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+/* Below-the-fold sections skip rendering until they approach the viewport,
+   which cuts first-load layout work. "auto" remembers the last real size. */
+#about,
+#projects .feature,
+#projects .index,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 700px;
 }
 
 /* The custom cursor replaces the native one ONLY while CustomCursor is
@@ -169,7 +235,7 @@ body::before {
   top: -100px;
   z-index: 3000;
   background: var(--accent);
-  color: #000;
+  color: var(--on-lime);
   font-family: var(--font-mono);
   font-size: 0.85rem;
   padding: 12px 20px;
@@ -187,51 +253,38 @@ body::before {
   outline-offset: 3px;
 }
 
-/* BUTTONS — pill-shaped to match the navbar. The hover glow is a
-   pre-painted pseudo-element whose opacity fades in, so hovering never
-   repaints a box-shadow. */
+/* BUTTONS — pill-shaped, flat lime, no glow. Hover lifts, press sinks. */
 .btn-primary {
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 16px 32px;
+  min-height: 52px;
+  padding: 14px 32px;
+  border: none;
   border-radius: 999px;
+  background: var(--accent);
+  color: var(--on-lime);
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   letter-spacing: 0.01em;
   text-decoration: none;
-  transition: transform 0.25s var(--ease-out), border-color 0.2s, color 0.2s;
-}
-
-.btn-primary {
-  background: var(--accent);
-  color: #000;
-  font-weight: 600;
-  border: none;
   cursor: pointer;
-}
-
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 10px 36px rgba(200, 242, 80, 0.35);
-  opacity: 0.45;
-  transition: opacity 0.25s;
-  pointer-events: none;
+  transition: transform var(--d-2) var(--ease-out), background-color var(--d-1);
 }
 
 @media (hover: hover) {
   .btn-primary:hover {
     transform: translateY(-2px);
+    background: #d6fb69;
   }
+}
 
-  .btn-primary:hover::after {
-    opacity: 1;
-  }
+/* press: every control answers the finger or click */
+.btn-primary:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 80ms;
 }
 
 /* UTILS */

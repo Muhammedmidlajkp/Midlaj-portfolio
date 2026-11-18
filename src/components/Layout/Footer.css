@@ -28,3 +28,9 @@ footer {
     color: var(--accent);
   }
 }
+
+.footer-inner a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}

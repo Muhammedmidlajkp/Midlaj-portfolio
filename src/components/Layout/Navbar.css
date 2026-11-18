@@ -15,7 +15,7 @@
 
 /* once the page moves, the header gets a quiet backdrop so it stays legible */
 .site-header.scrolled {
-  background: rgba(8, 8, 8, 0.86);
+  background: rgba(10, 10, 9, 0.86);
   border-bottom-color: var(--line);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
@@ -219,7 +219,7 @@
 
   /* the item you point at stays; the rest step back */
   .menu-list:hover a {
-    opacity: 0.35;
+    opacity: 0.55;
   }
 
   .menu-list a:hover {
@@ -289,4 +289,37 @@
   .menu-list a {
     grid-template-columns: 2.4rem 1fr auto;
   }
+}
+
+/* 44px touch targets, press feedback, notch-safe edges */
+.menu-toggle {
+  min-height: 44px;
+}
+
+.menu-toggle:active {
+  transform: scale(0.96);
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.menu-email,
+.menu-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.site-header {
+  padding-left: max(var(--pad-x), env(safe-area-inset-left));
+  padding-right: max(var(--pad-x), env(safe-area-inset-right));
+}
+
+.menu-panel {
+  padding-left: max(var(--pad-x), env(safe-area-inset-left));
+  padding-right: max(var(--pad-x), env(safe-area-inset-right));
+  padding-bottom: calc(32px + env(safe-area-inset-bottom));
 }
