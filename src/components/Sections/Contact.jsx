@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { site, whatsappUrl } from '../../data/site';
 import './Contact.css';
 
+// The same three projects that sit inside the hero headline return here.
+const THUMBS = ['weddesy', 'rootsbusiness', 'trustcore'];
+
 // Clipboard API where available, a hidden textarea where it is not
 // (older browsers, or pages the browser considers insecure).
 const copyText = async (text) => {
@@ -26,6 +29,12 @@ const copyText = async (text) => {
     return ok;
   }
 };
+
+const Check = () => (
+  <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="copy-check">
+    <path d="M3.5 8.5l3 3 6-7" />
+  </svg>
+);
 
 const Contact = () => {
   const [status, setStatus] = useState('idle'); // idle | copied | failed
@@ -52,12 +61,17 @@ const Contact = () => {
         conversations and new opportunities.
       </p>
 
-      <a className="contact-email" href={`mailto:${site.email}`}>
+      <a className={`contact-email${status === 'copied' ? ' is-copied' : ''}`} href={`mailto:${site.email}`}>
         {site.email}
       </a>
 
       <div className="contact-actions">
-        <button type="button" className="copy-btn" onClick={handleCopy}>
+        <a className="btn-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Message on WhatsApp
+          <span className="visually-hidden"> (opens in a new tab)</span>
+        </a>
+        <button type="button" className="copy-btn" data-state={status} onClick={handleCopy}>
+          {status === 'copied' && <Check />}
           {label}
         </button>
         {/* announces the result without moving focus */}
@@ -65,15 +79,15 @@ const Contact = () => {
           {status === 'copied' ? 'Email address copied to the clipboard' : ''}
           {status === 'failed' ? `Could not copy. The address is ${site.email}` : ''}
         </span>
+
+        <div className="contact-thumbs" aria-hidden="true">
+          {THUMBS.map((name) => (
+            <img key={name} src={`/img/${name}-thumb.webp`} width="480" height="300" alt="" loading="lazy" decoding="async" />
+          ))}
+        </div>
       </div>
 
       <ul className="contact-links">
-        <li>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            WhatsApp
-            <span className="visually-hidden"> (opens in a new tab)</span>
-          </a>
-        </li>
         {site.socials.map((s) => (
           <li key={s.label}>
             <a href={s.href} target="_blank" rel="noopener noreferrer">

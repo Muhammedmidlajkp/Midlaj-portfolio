@@ -1,9 +1,10 @@
 import { skillGroups } from '../../data/skillsData';
+import { projects } from '../../data/projectsData';
 import './About.css';
 
 const STATS = [
   { value: '1.5', label: 'Years of experience' },
-  { value: '5', label: 'Featured projects' },
+  { value: String(projects.filter((p) => p.featured).length), label: 'Featured projects' },
   { value: '10+', label: 'Happy clients' },
   { value: '3', label: 'Live client sites' },
 ];

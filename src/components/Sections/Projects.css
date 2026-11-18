@@ -135,13 +135,14 @@
   border-top: var(--hairline);
   color: var(--text);
   text-decoration: none;
-  transition: background-color 0.25s ease, padding 0.35s var(--ease-out);
+  transition: background-color var(--d-2) var(--ease-out);
 }
 
 .row-name {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  transition: transform var(--d-2) var(--ease-out);
 }
 
 .row-title {
@@ -182,8 +183,10 @@
 @media (hover: hover) {
   .row:hover {
     background: rgba(255, 255, 255, 0.03);
-    padding-left: 16px;
-    padding-right: 16px;
+  }
+
+  .row:hover .row-name {
+    transform: translateX(14px);
   }
 
   .row:hover .row-go {
@@ -222,4 +225,92 @@
   .row-tech {
     grid-column: 1 / -1;
   }
+}
+
+/* ---- v2: rhythm, one big hit area, a paper chapter ---- */
+
+/* every other feature flips sides, so the list stops reading as one repeated row */
+@media (min-width: 901px) {
+  .feature:nth-child(even) .feature-media {
+    grid-column: 6 / span 7;
+    grid-row: 1;
+  }
+
+  .feature:nth-child(even) .feature-body {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+}
+
+/* the whole feature is one target: the visible link stretches over it */
+.feature {
+  position: relative;
+}
+
+.feature-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.feature:active .feature-image {
+  transform: scale(1.01);
+  transition-duration: var(--d-1);
+}
+
+/* index on paper: one dark-to-paper-to-dark chapter shift.
+   The box-shadow and clip-path let the paper run edge to edge while the
+   content keeps the page gutters. */
+.paper {
+  margin-top: var(--space-block);
+  padding: var(--space-block) 0;
+  background: var(--bone);
+  color: var(--ink-on-paper);
+  box-shadow: 0 0 0 100vmax var(--bone);
+  clip-path: inset(0 -100vmax);
+}
+
+.paper .index-title {
+  color: var(--ink-on-paper);
+}
+
+.paper .index,
+.paper .row {
+  border-color: rgba(18, 18, 16, 0.18);
+}
+
+.paper .row {
+  color: var(--ink-on-paper);
+}
+
+.paper .row-desc {
+  color: rgba(18, 18, 16, 0.78);
+}
+
+.paper .row-tech,
+.paper .row-go {
+  color: rgba(18, 18, 16, 0.62);
+}
+
+.paper .row-kind {
+  color: var(--ink-on-paper);
+  font-weight: 600;
+}
+
+@media (hover: hover) {
+  .paper .row:hover {
+    background: rgba(18, 18, 16, 0.05);
+  }
+
+  .paper .row:hover .row-go {
+    color: var(--ink-on-paper);
+  }
+}
+
+.row:active {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.paper .row:active {
+  background: rgba(18, 18, 16, 0.09);
 }

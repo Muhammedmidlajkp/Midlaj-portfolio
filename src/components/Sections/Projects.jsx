@@ -31,7 +31,7 @@ const Projects = () => {
 
       <div className="features">
         {featured.map((project) => (
-          <article key={project.id} id={`project-${project.id}`} className="feature">
+          <article key={project.id} id={`project-${project.id}`} className="feature" data-cursor="View">
             {/* the image repeats the title link, so it is skipped by keyboard
                 and assistive tech */}
             <a
@@ -70,11 +70,12 @@ const Projects = () => {
         ))}
       </div>
 
+      <div className="paper">
       <h3 className="index-title">More projects</h3>
       <ul className="index">
         {rest.map((project) => (
           <li key={project.id} id={`project-${project.id}`}>
-            <a className="row" href={project.link} target="_blank" rel="noopener noreferrer">
+            <a className="row" href={project.link} target="_blank" rel="noopener noreferrer" data-cursor="Open">
               <span className="row-name">
                 <span className="row-title">{project.title}</span>
                 {isClient(project) && <span className="row-kind">Client work</span>}
@@ -89,6 +90,7 @@ const Projects = () => {
           </li>
         ))}
       </ul>
+      </div>
     </section>
   );
 };

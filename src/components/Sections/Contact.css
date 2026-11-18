@@ -44,10 +44,19 @@
 }
 
 .contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
   margin-top: 32px;
 }
 
 .copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 8.5rem;
   padding: 12px 22px;
   background: transparent;
   color: var(--text);
@@ -57,7 +66,7 @@
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color var(--d-1), color var(--d-1), background-color var(--d-1), transform var(--d-2) var(--ease-out);
 }
 
 @media (hover: hover) {
@@ -102,4 +111,61 @@
   display: inline-flex;
   align-items: center;
   min-height: 44px;
+}
+
+/* ---- v2: confirmation you can see, and the work coming back ---- */
+
+/* copied: the pill turns lime, a check mark draws itself, the email flashes */
+.copy-btn[data-state='copied'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-lime);
+}
+
+.copy-check path {
+  stroke-dasharray: 16;
+  stroke-dashoffset: 16;
+  animation: draw-check var(--d-2) var(--ease-out) forwards;
+}
+
+@keyframes draw-check {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.contact-email.is-copied {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* the three hero projects, small, pushed to the far end of the action row */
+.contact-thumbs {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .contact-thumbs {
+    display: flex;
+    gap: 10px;
+    margin-left: auto;
+  }
+
+  .contact-thumbs img {
+    display: block;
+    width: 84px;
+    height: 52px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 8px;
+    background: var(--card);
+  }
+}
+
+/* phones: stack the two actions, full width */
+@media (max-width: 480px) {
+  .contact-actions .btn-primary,
+  .copy-btn {
+    width: 100%;
+  }
 }
