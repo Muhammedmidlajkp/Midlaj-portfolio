@@ -62,6 +62,7 @@
   font-family: var(--font-display);
   font-size: var(--step-3);
   line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
   letter-spacing: -0.02em;
   color: var(--text);
 }

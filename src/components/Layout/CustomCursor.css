@@ -7,7 +7,7 @@
   left: 0;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.2s;
+  transition: opacity var(--d-1);
   will-change: transform;
 }
 
@@ -20,10 +20,9 @@
   width: 8px;
   height: 8px;
   margin: -4px 0 0 -4px;
-  background-color: var(--accent);
+  background-color: var(--ink);
   border-radius: 50%;
   z-index: 10000;
-  mix-blend-mode: difference;
 }
 
 .cursor-ring {
@@ -41,7 +40,7 @@
   border: 1.5px solid var(--accent);
   border-radius: 50%;
   opacity: 0.5;
-  transition: transform 0.3s var(--ease-out), opacity 0.3s, background-color 0.3s;
+  transition: transform var(--d-2) var(--ease-out), opacity var(--d-2), background-color var(--d-2), border-color var(--d-2);
 }
 
 .cursor-ring.hover .cursor-ring-shape {
@@ -50,6 +49,43 @@
   background-color: rgb(var(--lime-rgb) / 0.1);
 }
 
+
+/* labelled targets: the ring grows into a lime disc that says what a click does */
+.cursor-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font: 600 11px/1 var(--font-sans);
+  letter-spacing: 0.02em;
+  color: var(--on-lime);
+  opacity: 0;
+  transition: opacity var(--d-1);
+}
+
+.cursor-ring.has-label .cursor-ring-shape {
+  transform: scale(2.4);
+  opacity: 1;
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.cursor-ring.has-label .cursor-label {
+  opacity: 1;
+}
+
+.cursor-labelled .cursor-dot {
+  opacity: 0 !important;
+}
+
+/* press: the ring gives under the click */
+.cursor-ring.down .cursor-ring-shape {
+  transform: scale(0.7);
+}
+
+.cursor-ring.has-label.down .cursor-ring-shape {
+  transform: scale(2);
+}
 @media (hover: none), (pointer: coarse), (max-width: 900px) {
   .cursor-dot,
   .cursor-ring {

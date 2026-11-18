@@ -66,11 +66,11 @@ const Contact = () => {
       </a>
 
       <div className="contact-actions">
-        <a className="btn-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+        <a className="btn-primary" href={whatsappUrl} target="_blank" rel="noopener noreferrer" data-cursor="Chat">
           Message on WhatsApp
           <span className="visually-hidden"> (opens in a new tab)</span>
         </a>
-        <button type="button" className="copy-btn" data-state={status} onClick={handleCopy}>
+        <button type="button" className="copy-btn" data-state={status} data-cursor="Copy" onClick={handleCopy}>
           {status === 'copied' && <Check />}
           {label}
         </button>

@@ -1,6 +1,53 @@
+import { useEffect, useRef, useState } from 'react';
 import { skillGroups } from '../../data/skillsData';
 import { projects } from '../../data/projectsData';
 import './About.css';
+
+// Counts up to its value once, the first time it is mostly on screen.
+// The real value is always in the markup, so with reduced motion, no
+// IntersectionObserver, or before it runs, the final figure is what shows.
+const CountUp = ({ value }) => {
+  const ref = useRef(null);
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!('IntersectionObserver' in window)) return undefined;
+    const match = /^(\d+(?:\.\d+)?)(.*)$/.exec(value);
+    if (!match) return undefined;
+    const target = parseFloat(match[1]);
+    const decimals = (match[1].split('.')[1] || '').length;
+    const suffix = match[2];
+    let frame = 0;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        const start = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - start) / 1200);
+          const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+          setText(p < 1 ? (target * eased).toFixed(decimals) + suffix : value);
+          if (p < 1) frame = requestAnimationFrame(tick);
+        };
+        frame = requestAnimationFrame(tick);
+      },
+      { threshold: 0.6 }
+    );
+    observer.observe(ref.current);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(frame);
+    };
+  }, [value]);
+
+  return (
+    <dd ref={ref} className="stat-number">
+      {text}
+    </dd>
+  );
+};
 
 const STATS = [
   { value: '1.5', label: 'Years of experience' },
@@ -18,7 +65,7 @@ const About = () => {
             <source
               type="image/webp"
               srcSet="/img/profile-480.webp 480w, /img/profile-800.webp 800w"
-              sizes="(max-width: 900px) 70vw, 480px"
+              sizes="(min-width: 900px) 480px, (min-width: 700px) 42vw, min(320px, 100vw)"
             />
             <img
               src="/img/profile-800.jpg"
@@ -49,7 +96,7 @@ const About = () => {
             {STATS.map((s) => (
               <div key={s.label} className="stat">
                 <dt className="stat-label">{s.label}</dt>
-                <dd className="stat-number">{s.value}</dd>
+                <CountUp value={s.value} />
               </div>
             ))}
           </dl>

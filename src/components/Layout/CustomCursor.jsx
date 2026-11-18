@@ -5,9 +5,12 @@ import './CustomCursor.css';
 const QUERY = '(hover: hover) and (pointer: fine) and (min-width: 901px) and (prefers-reduced-motion: no-preference)';
 const INTERACTIVE = 'a, button, input, textarea, label, [data-cursor]';
 
+// The ring says what a click will do. Elements opt in with data-cursor="View"
+// (or Open, Copy, Chat); everything else interactive gets the plain hover ring.
 const CustomCursor = () => {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
+  const labelRef = useRef(null);
 
   useEffect(() => {
     const mq = window.matchMedia(QUERY);
@@ -16,6 +19,8 @@ const CustomCursor = () => {
     const start = () => {
       const dot = dotRef.current;
       const ring = ringRef.current;
+      const label = labelRef.current;
+      const root = document.documentElement;
       const mouse = { x: -100, y: -100 };
       const dotPos = { ...mouse };
       const ringPos = { ...mouse };
@@ -37,28 +42,38 @@ const CustomCursor = () => {
       const onMove = (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
-        document.documentElement.classList.add('cursor-visible');
+        root.classList.add('cursor-visible');
         if (!frame) frame = requestAnimationFrame(tick);
       };
 
       // delegated, so elements rendered later are covered too
       const onOver = (e) => {
+        const labelled = e.target.closest?.('[data-cursor]');
         ring.classList.toggle('hover', !!e.target.closest?.(INTERACTIVE));
+        ring.classList.toggle('has-label', !!labelled);
+        root.classList.toggle('cursor-labelled', !!labelled);
+        if (labelled) label.textContent = labelled.dataset.cursor;
       };
 
-      const onLeave = () => document.documentElement.classList.remove('cursor-visible');
+      const onDown = () => ring.classList.add('down');
+      const onUp = () => ring.classList.remove('down');
+      const onLeave = () => root.classList.remove('cursor-visible');
 
-      document.documentElement.classList.add('has-custom-cursor');
+      root.classList.add('has-custom-cursor');
       window.addEventListener('pointermove', onMove, { passive: true });
       document.addEventListener('pointerover', onOver, { passive: true });
-      document.documentElement.addEventListener('pointerleave', onLeave);
+      window.addEventListener('pointerdown', onDown, { passive: true });
+      window.addEventListener('pointerup', onUp, { passive: true });
+      root.addEventListener('pointerleave', onLeave);
 
       return () => {
         cancelAnimationFrame(frame);
         window.removeEventListener('pointermove', onMove);
         document.removeEventListener('pointerover', onOver);
-        document.documentElement.removeEventListener('pointerleave', onLeave);
-        document.documentElement.classList.remove('has-custom-cursor', 'cursor-visible');
+        window.removeEventListener('pointerdown', onDown);
+        window.removeEventListener('pointerup', onUp);
+        root.removeEventListener('pointerleave', onLeave);
+        root.classList.remove('has-custom-cursor', 'cursor-visible', 'cursor-labelled');
       };
     };
 
@@ -80,6 +95,7 @@ const CustomCursor = () => {
       <div ref={dotRef} className="cursor-dot" aria-hidden="true" />
       <div ref={ringRef} className="cursor-ring" aria-hidden="true">
         <span className="cursor-ring-shape" />
+        <span ref={labelRef} className="cursor-label" />
       </div>
     </>
   );
