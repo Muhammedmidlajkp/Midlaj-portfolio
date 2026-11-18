@@ -1,171 +1,150 @@
-# Audit: current portfolio vs minimal / editorial direction
+# Portfolio audit: Director's synthesis
 
-Chosen direction: **1. Minimal / editorial** (see `patterns.md`, "Three overall visual directions").
-Reference sites for this direction: Moiséz, Denny Pratama, Arshawn Arbabi, Giordano Betti, with borrowed ideas from Brandon Yasin (menu) and Yehor Herasymenko (slide transition, projects only).
+Audited commit `931109f` (live: https://midlaj-portfolio-psi.vercel.app/). Ten specialists reviewed screenshots at 1440, 768 and 390px plus the source; their full reports are in `research/audit/` (`01` to `10`, plus `00-current-state.md`). Screenshots: `research/screenshots/audit/`. The earlier redesign log is `research/audit-v1-redesign-log.md`.
 
-Audited: the dev build at commit `4773a8b`, captured at 1440px and 390px (`research/screenshots/midlaj-current-*.png`). Source read: `App.jsx`, `Hero.jsx`, `Projects.jsx`, `About.jsx`, `Contact.jsx`, `Navbar.jsx`, `index.css`, `data/*`, `index.html`. No code was changed.
-
-Not measured yet: Lighthouse. A dev-server run is misleading, so the baseline should be taken on a production build before the first change.
+Audit only. No code was changed.
 
 ---
 
-## 0. Blocking issue found: undeclared dependency
+## 1. Overall score and verdict
 
-`src/components/Sections/Hero.jsx` imports `framer-motion`, but it is **not in `package.json` or `package-lock.json`**. It currently resolves only because a copy sits in the parent checkout's `node_modules`.
+**Overall: 5.5 / 10. Awwwards readiness: not yet.**
 
-- On a clean clone (what Vercel does), `vite build` should fail with an unresolved import. I could not reproduce that cleanly here because this worktree sits inside the parent checkout and picks the parent's copy up. Treat it as very likely, not proven.
-- The cause is commit `4773a8b` ("new chnages"), which also stopped using `HeroBackdrop`/`HeroThreads`. Those files and `LightRays.jsx` (562 lines) are now unused code.
-- Side effect I hit: running `npm ci` inside the worktree produced two copies of React and a blank page ("Invalid hook call"). I removed that `node_modules`; the worktree is back to its original state.
-
-Fix options: (a) add `framer-motion` to dependencies, or (b) drop it when the hero is rebuilt for this direction. Option (b) fits the minimal direction and removes about 100 KB of JS, but it should only happen as part of the hero rewrite. **Check your Vercel dashboard: if the latest deploy failed, this is why.**
-
----
-
-## 1. Overall system
-
-| Aspect | Today | Minimal / editorial target |
+| Specialist | Score | Headline |
 |---|---|---|
-| Palette | Near-black `#080808`, lime accent `#c8f250`, grey text | Keep the dark + lime identity (it is yours and it works); use lime sparingly, only for status/CTA/focus |
-| Type | Syne 800 (very wide, 128px hero), DM Mono body, Instrument Serif italic loaded but barely used | Pick one display voice and one mono. Syne's extra-wide letterforms are the least editorial part of the site; consider a tighter grotesk for headings and using the serif for one accent word. This is the biggest single "feel" change |
-| Backgrounds | Grid overlay, hero glow, noise overlay, preloader curtain | Reduce to noise at most; editorial sites rely on whitespace, hairlines and type |
-| Layout | Centred max-width cards, `// Label` section tags | 12-column grid with hairline rules, numbered sections, mono micro-labels |
-| Motion | Per-character hero animation, reveal-on-scroll, custom cursor | Fewer, better moments: blur-to-sharp text reveals, one scroll-linked detail |
-| Chrome | Floating WhatsApp button on every screen, custom cursor | Keep WhatsApp but make it quieter; keep custom cursor only if it adds a state (hover label) |
+| 01 Visual design | 5 | Clean and competent, not memorable |
+| 02 Typography | 6 | Hero type is strong; hierarchy and expression are thin |
+| 03 Colour & brand | 5 | AAA contrast, but a stock dark + lime identity |
+| 04 Layout & grid | 5 | Solid grid, repeated composition, broken on ultrawide and tablet |
+| 05 Motion | 4 | Nothing scroll-driven after the hero |
+| 06 Interaction | 5 | No press states, one-state cursor |
+| 07 UX & IA | 5 | No proof depth, contradictory stats |
+| 08 Accessibility | 8 | axe clean, strong keyboard model |
+| 09 Performance | 7 | Lean build; LCP and TBT limited by first render |
+| 10 Mobile & responsive | 6 | No overflow anywhere; tablet band and safe areas unresolved |
 
----
+Simple mean: 5.6. I weighted it the way Awwwards does (design 40%, usability 30%, creativity 20%, content 10%): design about 5.2, usability about 6.5, creativity about 4.7, content about 4, which gives about 5.4. I round to 5.5.
 
-## 2. Section by section
+**Verdict.** The craft layer (accessibility, speed, clean build) is already at honourable-mention standard. What stops it reaching Site-of-the-Day is the layer jurors actually reward: a signature idea, scroll-driven pacing, and proof of the work. Those are all fixable, and none needs a framework change. These are my estimates, not Awwwards' own thresholds.
 
-### Hero (`midlaj-current-hero.png`, `midlaj-current-mobile-hero.png`)
-**Today:** Giant three-line headline "Building the web of tomorrow." with the middle line in lime, mono paragraph, two pill buttons, "Available for work" tag, grid and glow background.
-**Strengths:** Clear, bold, the availability tag is exactly the right idea (Moiséz, Arshawn do this).
-**Gaps vs best patterns**
-- The headline is generic. Nothing in it says who you are or what you build; top editorial heroes (Denny Pratama, Moiséz) state the pitch concretely and show work or an object.
-- No live detail (clock, location, status) beyond the static tag.
-- No work visible above the fold.
-- **Mobile bug:** on 390px the period of "tomorrow." is clipped at the right edge (visible in the mobile screenshot).
-- Per-character animation in `Hero.jsx` is 200 lines of custom splitting; it would be replaced, not extended.
-**Plan:** Re-state the headline in your own voice (needs your input), set it in the new type system with 2-3 small project thumbnails inline between words (Moiséz pattern), add a live Kochi/IST clock and availability dot, keep one primary CTA.
+## 2. Executive summary: the five biggest problems
 
-### Navigation (`midlaj-current-hero.png`)
-**Today:** Floating pill with logo, four links, lime "Let's Talk" button, active-section underline, focus-trapped mobile menu (well built).
-**Strengths:** Accessibility is genuinely good (focus trap, Escape, skip link, `aria-label`). Scroll-spy works.
-**Gaps:** It is a standard SaaS pill. Nothing memorable.
-**Plan:** Keep the logic and accessibility; restyle as a minimal fixed header (wordmark left, MENU + "Let's talk" right), and make the mobile/desktop menu a full-screen numbered overlay (John Bolster / Brandon Yasin pattern). The zoom-out spatial menu is possible but costs a lot of work for four sections; recommend the numbered overlay first.
+1. **No signature idea; the identity is a 2026 default.** Near-black, one acid-lime accent, serif plus mono is the common "dev portfolio" look. Lime disappears after the hero, the whole page is one flat black, and the hero's inline thumbnails (the only candidate for a memorable idea) are too small and dim. (01, 03)
+2. **The page goes static after the hero.** No scroll reveals, no pacing, no transitions between sections; eleven durations and five easings, including an off-brand bounce on the WhatsApp button. (05)
+3. **No proof behind the work, and contradictory claims.** Every project links straight out; there is no problem, role or result. Stats clash ("10+ happy clients" next to "3 live client sites"; "5 featured" while six are featured). The bio comes before the proof, there are no services, and the header hides contact behind a Menu button. (07)
+4. **Repetitive composition and brittle layout.** Every section is the same left-aligned stack; all six features use the same 7/5 image-left row. On wide screens the hero and the other sections start at different left edges, and the 601-900px tablet band is unresolved (an orphaned hero thumbnail, a dead half-empty About). (04, 10)
+5. **The interface has no tactility.** No `:active` state anywhere, a cursor with one state and no labels, feature cards that are only weakly clickable, and copy-email feedback that is a plain text swap. (06)
 
-### Skills (no direct reference section)
-**Today:** Three large cards of tool tiles with icons (Render, GitHub, AI APIs, Postman, Swagger, and so on), roughly 240 lines of CSS.
-**Gaps:** Tile grids of logos are the most "template" part of the site; none of the 30 reference portfolios use one.
-**Plan:** Collapse into a quiet mono list or a single "Capabilities" ledger inside About (Huy Phan credential-ledger pattern), freeing a whole screen.
+**What is already strong and must not be broken:** accessibility (axe 0 violations, focus trap, reduced motion), the lean dependency-free build, the hero headline type, the token system.
 
-### Projects (`midlaj-current-work.png`, `midlaj-current-about.png`)
-**Today:** Nine cards in a 2-column grid, first one featured, each with screenshot, number, title, long paragraph, tag chips and "View Project". Two projects (Nizan Tech, AI Voice Calling Agent) show an initials placeholder instead of an image. Good responsive image setup (WebP sets).
-**Strengths:** Real, varied, live projects including client work in India and the UAE; this is your strongest asset.
-**Gaps**
-- Every project gets equal weight and a paragraph; nine cards of the same shape means nothing stands out. Top showcases give each project a moment and an index.
-- Tag chips and long descriptions add visual noise.
-- The two placeholders look unfinished next to real screenshots.
-- Numbering is inconsistent ("03 — Client Work" is baked into the number string).
-**Plan:** Editorial index list (Giordano Betti / Huy Phan): number, title, one-line description, year/role, tech in mono, with a hover/active image preview. Feature 3-4 best projects with large images and slide transition (Yehor pattern) and keep the rest as list rows. Decide what to do about the two placeholders (screenshots needed from you).
+## 3. Reconciling the specialists
 
-### About (`midlaj-current-*`; no dedicated screenshot captured, About sits between hero and skills)
-**Today:** Heading "Crafting code with purpose.", two generic paragraphs, four stats and a custom ProfileCard component with the avatar.
-**Gaps**
-- Copy is generic ("clean code and thoughtful design", "brewing the perfect cup of coffee"); the best About sections prove personality in one gesture and still give facts.
-- **Content consistency:** stats say "5 Featured Projects", "10+ Happy Clients" and "3 Live Client Sites", while the site lists 9 projects and 2 client sites tagged "Client Work" (Roots Business, BizBook) plus TrustCore and Team N. I did not change these; **please confirm the true numbers** before they are reused.
-**Plan:** One strong gesture (e.g. a small interactive typographic element, Moiséz-style, kept lightweight), a short factual bio in your own words, your real stats, and the capabilities ledger from Skills. Replace the ProfileCard with a simple photo treatment.
+- **Hero's serif-to-sans line.** Visual called it the most authored thing on the page; Typography called it arbitrary. Decision: keep it, because it carries the "design + build" idea, but make it a system. Serif is the design/people voice; Geist is the build/tech voice and also carries tech lists and ledger values. Add the Instrument Serif italic.
+- **Lime.** Visual suggested swapping or flooding it; Colour said the hue is fine and the distribution is the problem. Decision: keep lime strictly as the action colour, add one paper chapter, and let the clients' own colours (per-project tints) be the second tone.
+- **Hero thumbnails.** Visual wants them bigger, Layout and Mobile want no orphans. Decision: larger at 1200px and up (about 0.9em tall, 14px radius, full colour), two thumbnails from 601 to 900px, none below 361px, with `text-wrap: balance`.
+- **WhatsApp button.** Visual, UX, Colour and Mobile all flag it. Decision: restyle quiet (coal fill, hairline, green only on hover), safe-area aware, and fade it out while the hero CTA or the contact section is in view.
+- **Motion libraries.** Motion specialist's sizes were from memory. I checked what matters: native scroll-driven animations are Baseline (Chrome and Edge 115, Safari 26, Firefox 159 per [web.dev, October 2026](https://web.dev/blog/web-platform-10-2026)) and GSAP including SplitText is now free under [Webflow's no-charge licence](https://webflow.com/blog/gsap-becomes-free). The gzip sizes of Lenis and GSAP are unverified here.
+- **Caveats.** Interaction (06) worked from source only, without hover captures. Context7 was not available. Live mobile Lighthouse varies run to run (91 to 96).
 
-### Contact / Footer (`midlaj-current-contact.png`)
-**Today:** "Let's build together." headline, three-field form that opens the visitor's mail app (no backend), "OR", email in large type with lime underline, three pill social links, a big name wordmark footer.
-**Strengths:** Email is large and visible, social links present, form tells the visitor what happens.
-**Gaps:** The mailto form is a weak experience and duplicates the email; the footer repeats navigation. The closing moment is not memorable.
-**Plan:** Make the closing line the email itself in giant type (Denny Pratama pattern) with a "copy email" button (John Bolster), keep WhatsApp and socials as a mono link row, and drop the form unless you want a real backend. Keep the oversized name wordmark; it already suits the direction.
+## 4. Section-by-section audit
 
-### Micro-interactions
-**Today:** Reveal-on-scroll, per-character hero, custom cursor (`has-custom-cursor` guard is well done), preloader curtain.
-**Plan:** Add live clock + availability dot, blur-to-sharp headline reveals, a hover image preview on project rows, and a scroll-linked section counter in the header. Respect `prefers-reduced-motion` as the existing code already does.
+### Navigation
+- **Issues:** only a Menu pill on desktop, no persistent contact action (07); after a menu link, focus returns to the Menu button instead of the target section (08, `Navbar.jsx:87`); link targets 19-32px tall (08, 10); hover-dim drops to about 2.8:1 contrast (08); no progress cue.
+- **Redesign:** at 900px and up, a persistent header: wordmark left, text links Work, About, Contact, and a lime "Let's talk" pill (40px high). Keep the full-screen numbered menu below 900px. A 2px lime scroll-progress hairline under the header.
+- **Animation:** section label crossfade 300ms; progress via `animation-timeline: scroll()`; menu hover-dim raised to opacity .55; focus moves to the target section after navigation.
 
----
+### Hero
+- **Issues:** thumbnails small and dim; who/for-whom sentence is small grey text at the fold edge (07); dead space; WhatsApp collides with the CTAs; 320px wraps to six lines (10).
+- **Redesign:** keep the three-line headline. Thumbnails about 0.9em tall with 14px radius and full colour, cropped to a legible detail of each site. Move the "Websites and web apps for businesses in India and the UAE" line to 22px (`--step-1`, `#e8e8e8`) directly under the headline. CTAs: primary "Start a project", secondary "See the work". Give "Available for work" a detail line (needs your wording).
+- **Animation:** preloader cut to 0.35s and shown once per session; headline rise 0.8s at 0.08s stagger; thumbnails reveal with `clip-path: inset(0 100% 0 0)` to `inset(0)` over 0.9s after the text lands; hover tilt (-3deg, scale 1.08) with siblings dimmed.
 
-## 3. What to keep
+### About
+- **Issues:** generic bio; stats contradict the project data; portrait is a plain rectangle with a green cast; at 768px the right half is empty (01, 04, 07, 10).
+- **Redesign:** an 80-word specific bio in your voice (needs your input), the portrait regraded neutral on a coal card, three verifiable facts instead of four stats, two columns from 700px (`5fr 7fr`), one large serif sentence with an italic phrase.
+- **Animation:** facts count up once over 1200ms; portrait clip-path reveal (transform and opacity only).
 
-- Dark theme + lime accent, DM Mono as the micro-label voice.
-- All accessibility work (skip link, focus ring, focus-trapped menu, reduced-motion handling, visually-hidden labels).
-- Responsive image pipeline (`scripts/img.mjs`, WebP sets) and SEO/JSON-LD in `index.html`.
-- Data-driven structure (`data/site.js`, `data/projectsData.js`), which makes the projects rewrite cheap.
+### Projects
+- **Issues:** six identical rows with no pacing; no depth behind any project; image link is hidden from assistive tech so the only mouse affordance is a 2.5% zoom; index rows have no imagery and animate padding (layout cost) (01, 04, 06, 07).
+- **Redesign:** lead project full-width, then alternate 7/5 and 5/7; large faint numerals overlapping image corners (blend-mode difference); the whole feature is one hit area; a case-study panel per project (client and location, role, problem, what I built, stack, real outcome; needs your facts); the index set on a bone (paper) chapter; per-project tint behind each row.
+- **Animation:** image reveal `clip-path: inset(8% 0 0 0)` to `inset(0)` plus scale 1.08 to 1 over 1000ms via `animation-timeline: view()`; image parallax -6%; index hover with `transform` instead of `padding`; cursor label "View".
 
-## 4. Performance and mobile notes (to verify with Lighthouse)
+### Skills / Experience
+- **Issues:** the ledger is tidy but inert and answers "how", not "what do I get" (07). There is no experience or process content.
+- **Redesign:** replace it with "How I work": three offers (business website, web app, fixes and redesign), each with who it suits and typical delivery, then a four-step process (brief, design, build, launch), where numbering is justified because it is a real sequence. Keep the stack as one compact line. Add an experience timeline only if you have real entries.
+- **Animation:** row reveal with a 60ms stagger.
 
-- Current JS bundle was 369 KB (121 KB gzip) in the build I ran; most of that is React plus `react-icons` and `framer-motion`. Removing `framer-motion` and trimming icon imports would help.
-- About 560 lines of unused WebGL code (`LightRays.jsx`, `Threads`) are not imported by `App.jsx` after `4773a8b`; they can be deleted.
-- Three Google font families are loaded (Syne, DM Mono, Instrument Serif). The new type system should load at most two, with `font-display: swap` and a preload for the hero face.
-- Mobile hero clipping bug above should be fixed in the hero rewrite.
+### Contact
+- **Issues:** inverted hierarchy (41.6px heading under an 82px email); generic invitation copy; WhatsApp buried; copy feedback is only a text swap (02, 06, 07).
+- **Redesign:** heading "Tell me about your project." at `--step-3`; three equal actions (WhatsApp lime pill 56px, copy email, download CV); a reply-time line if true.
+- **Animation:** copy confirmation: pill fixed at `min-width: 8.5rem`, check stroke draws over 300ms, pill turns lime for 2.4s, the email flashes accent once; email reveals with a line mask.
 
----
+### Footer
+- **Issues:** link rows 20-22px tall; the WhatsApp button can sit over it (08, 10).
+- **Redesign:** keep it minimal; 44px targets; extra space above it. Placement of "Back to top" stays on the left.
+- **Animation:** none beyond a hover colour change at 150ms.
 
-## 5. Proposed order of work (one section at a time, shown to you before moving on)
+## 5. Recommended visual direction: "Ink & Paper"
 
-| # | Step | Result |
-|---|------|--------|
-| 0 | Baseline + hygiene: resolve the `framer-motion` dependency, take a production Lighthouse baseline | Safe deploys, a number to beat |
-| 1 | Design tokens + type system | New fonts, spacing, hairline/grid utilities |
-| 2 | Hero | New headline, inline project thumbnails, live clock, mobile fix |
-| 3 | Navigation | Minimal header + numbered overlay menu |
-| 4 | Projects | Editorial index + 3-4 featured slides |
-| 5 | About + Skills merge | One gesture, factual bio, capabilities ledger |
-| 6 | Contact / Footer | Giant copyable email, link row |
-| 7 | Micro-interactions + performance pass | Final polish, Lighthouse 90+, mobile QA |
+**One direction, with justification.** Direction 1 (minimal/editorial) was right, but the audit shows it stops at "clean". Ink & Paper keeps its restraint and adds what editorial sites actually have: a tonal chapter shift and a repeating visual motif. It is also the lowest-risk way to gain character without adding weight.
 
-Each step ends with a screenshot review and a commit.
+- **Mood:** calm, tactile, printed-matter. A dark page that turns to paper once (the Projects index or Contact), then back.
+- **Motif:** the work itself. The thumbnail pills from the hero reappear as the project reveals and again as a small row beside the contact email, so the page keeps showing its proof.
+- **Font pairing:** Instrument Serif (400 plus the italic) for display and people; Geist for UI, body and tech facts; DM Mono only for live data (clock, status). Fallback metrics via `size-adjust`.
+- **Palette (named values):**
 
-## 6. Decisions (answered by you)
+| Token | Value | Use |
+|---|---|---|
+| `--ink-black` | `#0A0A09` | page base |
+| `--coal` / `--coal-2` | `#141412` / `#1D1D1A` | surfaces and hover |
+| `--bone` | `#ECEBE3` | paper chapter, primary text on dark |
+| `--ink-on-paper` | `#121210` | text on bone |
+| `--lime` | `#C8F250` | action only: CTA, focus ring, availability dot, cursor |
+| per-project tints | from each project (e.g. Weddesy `#E0306B`) | hover tint and index accents |
 
-1. **Hero angle:** "Design + build", the front-end craft plus full-stack backend pairing. I will draft the wording and show you options before using it.
-2. **About stats:** keep as they are (1.5 years, 5 featured projects, 10+ happy clients, 3 live client sites). I will not change the numbers.
-3. **Nizan Tech and AI Voice Calling Agent:** you will supply screenshots. Until they arrive, these two keep the typographic placeholder.
-4. **Contact:** email + WhatsApp only. The mailto form is removed in the Contact step, replaced by a giant copyable email and a link row.
-5. **WhatsApp floating button:** not answered; default is to keep it, restyled to be quieter.
+Hairlines raised to `rgba(255,255,255,.16)`. Hard-coded greys and lime alphas move to tokens. The WhatsApp green and the teal portrait cast go away.
 
----
+## 6. Motion system
 
-## 7. Outcome (final pass)
+- **Easing:** `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)` for everything entering or revealing; `--ease-in-out: cubic-bezier(0.76, 0, 0.24, 1)` only for large moves (curtain, menu panel). Remove `ease`, `ease-in` and the WhatsApp overshoot.
+- **Durations:** `--d-1: 150ms` (colour, underline), `--d-2: 300ms` (buttons, menu, cursor), `--d-3: 600ms` (reveals), `--d-4: 1000ms` (hero and image clip reveals).
+- **Stagger:** 60ms for lists, 90ms for headline lines; total no more than 450ms.
+- **One reveal rule:** clip or translate 24px up plus opacity, 600ms, triggered at 15% in view, once. Apply to section titles (line mask), project images and the portrait. Do not fade-slide every paragraph.
+- **Scroll-linked:** header progress hairline; project image parallax -6%; count-up facts; contact email line reveal.
+- **Which tool does what:**
+  1. **Native CSS first:** `animation-timeline: view()` and `scroll()` for reveals, parallax and progress, behind `@supports`, with visible-by-default fallback. 0 KB.
+  2. **Lenis** (small; size unverified) only if you want inertial scroll; disable on touch and reduced motion.
+  3. **GSAP + ScrollTrigger + SplitText:** now free, but a larger download; only if you later want pinned or character-level storytelling. Not needed for the 90+ Lighthouse rule.
+  4. **No Framer Motion** (removed already).
+- **Preloader:** 0.35s, once per session (`sessionStorage`), on the in-out curve.
+- **Reduced motion:** keep the kill switch; reveals render in their final state; no parallax, no count-up, no pulse.
+- **Mobile:** reveals only (transform, opacity, clip-path), no parallax or pinning below 900px.
 
-All seven steps are built, each as its own commit on `claude/portfolio-upgrade-setup-d7ec4c`:
-dependency fix, type system, hero, navigation, projects, about (with skills merged), contact and footer, then a final performance and accessibility pass.
+## 7. Prioritised implementation plan
 
-**Lighthouse on the production build (localhost, `vite preview`)**
+Effort: S under half a day, M about a day, L two to three days. These are my estimates.
 
-| | Performance | Accessibility | Best practices | SEO |
-|---|---|---|---|---|
-| Mobile before final pass | 58 | 100 | 100 | 100 |
-| Mobile after | 98 | 100 | 100 | 100 |
-| Desktop before | 99 | 100 | 100 | 100 |
-| Desktop after | 100 | 100 | 100 | 100 |
+| # | Step | Effort | Depends on you |
+|---|------|--------|----------------|
+| 0 | **Quick wins, no design change:** `vercel.json` cache headers (assets and fonts immutable), `content-visibility: auto` below the fold, shorter preloader, menu focus fix, 44px touch targets, press states, `viewport-fit=cover`, safe-area and `theme-color`, contact heading scale, `text-wrap: balance`, tablet fixes, quieter WhatsApp | M | nothing |
+| 1 | **Foundations:** spacing and motion tokens, shared `.wrap`, italic serif and fallback metrics, breakpoint set (360, 600, 700, 900), tokenise stray colours | M | approve palette |
+| 2 | **Hero v2:** larger thumbnails, 22px who/for-whom line, CTA labels, mobile and 320px behaviour | M | hero wording |
+| 3 | **Navigation v2:** persistent desktop header with "Let's talk", progress hairline | S | nothing |
+| 4 | **Projects v2:** varied layout, numerals, whole-card hit area, paper chapter, reveals, case-study panel | L | per-project facts, screenshots |
+| 5 | **Services, process and proof; About rewrite** | M to L | your bio, services, real stats, CV |
+| 6 | **Contact and footer v2:** new heading, three actions, copy feedback, targets | S to M | reply time |
+| 7 | **Motion layer:** scroll reveals, count-up, cursor labels ("View", "Copy") | M | none |
+| 8 | **Signature interaction (stretch):** the hero pills carry into the project reveals as you scroll | L | none; riskiest item |
+| 9 | **QA:** Lighthouse CI (3 mobile runs, median 93+), real-device check | S | a phone |
 
-Mobile after: FCP 1.4 s, LCP 2.4 s, TBT 30 ms, CLS 0.
+Rough total: 8 to 11 working days. Steps 0, 1, 3 and 7 need nothing from you and can start immediately.
 
-What moved mobile from 58 to 98:
-- Fonts self-hosted in `public/fonts` (latin subset, OFL). The Google Fonts stylesheet was a cross-origin render-blocking request worth about 5 s under Lighthouse's slow-4G simulation.
-- The first featured project image is lazy-loaded (it is far below the fold).
-- Hero thumbnails use 320px files (6-9 KB) instead of 640px files.
+## 8. Packages to install (not installed)
 
-Bundle: JS 368 KB to 211 KB (gzip 120 to 67 KB) after dropping framer-motion and react-icons; about 1,900 lines of unused code removed (old hero WebGL, skills tiles, profile card, reveal hook).
+- **Runtime:** none needed for steps 0 to 7. Optional: `lenis` (only for inertial scroll).
+- **Dev:** `sharp` (the image-variant script currently runs with `--no-save`), `@lhci/cli` (Lighthouse CI).
+- **Config files, no package:** `vercel.json` (cache headers).
+- **Not recommended now:** `gsap` (free, but unnecessary at this scope), `framer-motion`/`motion`.
 
-**Checks run on the production build:** no horizontal overflow from 320 to 1920px; every control reachable by keyboard with a visible focus ring; menu focus trap, Escape and focus return; reduced motion respected (preloader hidden, entrance animation neutralised); custom cursor only with a mouse; zero console errors.
+## 9. What I cannot do for you (content needed)
 
-**Known and left alone**
-- Lighthouse still lists about 57 KiB of possible image savings (down from 96 KiB after adding 960px variants of the three featured screenshots); the rest is the 1280px fallback and Traveezy at 1024px.
-- Hover states were checked by code and in screenshots of focus/menu, not exhaustively by hand.
-- Lighthouse was run on localhost against a simulated slow-4G profile; re-run it on the Vercel URL after deploy for the real number.
-- Nizan Tech and the AI Voice Calling Agent still have no screenshots (waiting on you).
-- The bio copy is the original wording; it is generic and worth rewriting once you share more about yourself.
-
-### Live site check (https://midlaj-portfolio-psi.vercel.app/, commit 4379a45)
-
-| Run | Performance | Accessibility | Best practices | SEO | FCP | LCP | TBT | CLS |
-|---|---|---|---|---|---|---|---|---|
-| Mobile (1) | 92 | 100 | 100 | 100 | 1.5 s | 1.9 s | 270 ms | 0 |
-| Mobile (2) | 93 | 100 | 100 | 100 | 1.3 s | 1.7 s | 290 ms | 0 |
-| Desktop | 100 | 100 | 100 | 100 | 0.3 s | 0.4 s | 0 ms | 0 |
-
-Above the 90 target everywhere. Mobile TBT is higher live than on localhost (about 20-30 ms there): one forced layout of about 100 ms plus style and layout work on a CPU-throttled run. The same code scored 98 locally, so part of the gap is run-to-run noise on a busy machine. If mobile needs to go higher, the first thing to look at is that forced layout (top function in the main JS bundle).
+I will not invent facts. To do steps 2, 4, 5 and 6 properly I need from you: your real stats; for each project one or two sentences on role, problem and outcome; what services you offer and whether to show prices; a CV file; a reply-time promise you will honour; what "available" means (freelance, full-time, from when); a short true bio; screenshots for Nizan Tech and the AI Voice Calling Agent.
