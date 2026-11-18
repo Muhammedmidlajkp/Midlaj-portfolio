@@ -5,10 +5,13 @@ import './Navbar.css';
 // Page order. The menu numbers these, so keep the array in the same order
 // as the sections in App.jsx.
 const LINKS = [
+  { id: 'projects', label: 'Work' },
   { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
   { id: 'contact', label: 'Contact' },
 ];
+
+// At this width the header shows its links; below it they live in the menu.
+const WIDE = '(min-width: 900px)';
 
 // Highlights the section currently in the middle band of the viewport
 const useActiveSection = (ids) => {
@@ -53,7 +56,14 @@ const Navbar = () => {
   const focusTarget = useRef(null); // id of the section a menu link is heading to
 
   const closeMenu = () => setIsMenuOpen(false);
-  const currentLabel = LINKS.find((l) => l.id === active)?.label;
+
+  // widening the window past the breakpoint makes the menu redundant
+  useEffect(() => {
+    const mq = window.matchMedia(WIDE);
+    const onChange = () => mq.matches && setIsMenuOpen(false);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, []);
 
   useEffect(() => {
     if (!isMenuOpen) return;
@@ -110,13 +120,26 @@ const Navbar = () => {
         </a>
 
         <div className="header-right">
-          {/* tells you where you are without a second row of links */}
-          <p className={`header-section${currentLabel ? ' visible' : ''}`} aria-hidden="true">
-            {currentLabel}
-          </p>
+          {/* wide screens: the three destinations stay one click away */}
+          <nav className="header-nav" aria-label="Primary">
+            {LINKS.map((l) => (
+              <a
+                key={l.id}
+                href={`#${l.id}`}
+                aria-current={active === l.id ? 'location' : undefined}
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+          <a className="btn-primary btn-sm header-cta" href="#contact">
+            Let's talk
+          </a>
+
+          {/* smaller screens: one door into the full-screen menu */}
           <button
             ref={toggleRef}
-            className="menu-toggle"
+            className="menu-toggle menu-toggle-open"
             onClick={() => setIsMenuOpen(true)}
             aria-expanded={isMenuOpen}
             aria-controls="site-menu"

@@ -41,19 +41,6 @@
   gap: 28px;
 }
 
-.header-section {
-  font-size: var(--step--1);
-  color: var(--muted);
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.header-section.visible {
-  opacity: 1;
-  transform: none;
-}
-
 /* MENU BUTTON */
 .menu-toggle {
   display: inline-flex;
@@ -282,10 +269,6 @@
     font-size: 1.5rem;
   }
 
-  .header-section {
-    display: none;
-  }
-
   .menu-list a {
     grid-template-columns: 2.4rem 1fr auto;
   }
@@ -322,4 +305,96 @@
   padding-left: max(var(--pad-x), env(safe-area-inset-left));
   padding-right: max(var(--pad-x), env(safe-area-inset-right));
   padding-bottom: calc(32px + env(safe-area-inset-bottom));
+}
+
+/* HEADER NAV — wide screens keep the three destinations and one hire button
+   in view; below 900px the Menu button opens the overlay instead. */
+.header-nav,
+.header-cta {
+  display: none;
+}
+
+.btn-sm {
+  min-height: 40px;
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+@media (min-width: 900px) {
+  .header-right {
+    gap: 36px;
+  }
+
+  .header-nav {
+    display: flex;
+    gap: 32px;
+  }
+
+  .header-cta {
+    display: inline-flex;
+  }
+
+  .menu-toggle-open {
+    display: none;
+  }
+}
+
+.header-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
+  transition: color var(--d-1), text-decoration-color var(--d-1);
+}
+
+@media (hover: hover) {
+  .header-nav a:hover {
+    color: var(--ink);
+  }
+}
+
+.header-nav a[aria-current='location'] {
+  color: var(--ink);
+  text-decoration-color: var(--accent);
+}
+
+/* reading progress: a 2px lime hairline along the header's bottom edge,
+   driven by scroll position with no JavaScript. Hidden where unsupported. */
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .site-header::after {
+    display: block;
+    animation: read-progress linear both;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes read-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header::after {
+    display: none;
+  }
 }

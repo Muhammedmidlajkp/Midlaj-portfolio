@@ -11,8 +11,8 @@ const Thumb = ({ name }) => (
   <img
     className="hero-thumb"
     src={`/img/${name}-thumb.webp`}
-    width="96"
-    height="60"
+    width="480"
+    height="300"
     alt=""
     decoding="async"
   />
@@ -82,8 +82,8 @@ const Hero = () => (
         apps for clients in India and the UAE, from the interface to the database.
       </p>
       <div className="hero-cta" data-hide-fab>
-        <a href="#projects" className="btn-primary">View selected work</a>
-        <a href={`mailto:${site.email}`} className="hero-mail">Email me</a>
+        <a href="#contact" className="btn-primary">Start a project</a>
+        <a href="#projects" className="hero-mail">See the work</a>
       </div>
     </div>
   </section>

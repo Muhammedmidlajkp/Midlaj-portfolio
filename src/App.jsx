@@ -22,8 +22,8 @@ function App() {
         <Navbar />
         <main id="main">
           <Hero />
-          <About />
           <Projects />
+          <About />
           <Contact />
         </main>
         <Footer />
