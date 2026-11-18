@@ -159,3 +159,13 @@ Bundle: JS 368 KB to 211 KB (gzip 120 to 67 KB) after dropping framer-motion and
 - Lighthouse was run on localhost against a simulated slow-4G profile; re-run it on the Vercel URL after deploy for the real number.
 - Nizan Tech and the AI Voice Calling Agent still have no screenshots (waiting on you).
 - The bio copy is the original wording; it is generic and worth rewriting once you share more about yourself.
+
+### Live site check (https://midlaj-portfolio-psi.vercel.app/, commit 4379a45)
+
+| Run | Performance | Accessibility | Best practices | SEO | FCP | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|---|
+| Mobile (1) | 92 | 100 | 100 | 100 | 1.5 s | 1.9 s | 270 ms | 0 |
+| Mobile (2) | 93 | 100 | 100 | 100 | 1.3 s | 1.7 s | 290 ms | 0 |
+| Desktop | 100 | 100 | 100 | 100 | 0.3 s | 0.4 s | 0 ms | 0 |
+
+Above the 90 target everywhere. Mobile TBT is higher live than on localhost (about 20-30 ms there): one forced layout of about 100 ms plus style and layout work on a CPU-throttled run. The same code scored 98 locally, so part of the gap is run-to-run noise on a busy machine. If mobile needs to go higher, the first thing to look at is that forced layout (top function in the main JS bundle).
