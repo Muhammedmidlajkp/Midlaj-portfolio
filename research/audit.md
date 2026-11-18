@@ -148,3 +148,36 @@ Rough total: 8 to 11 working days. Steps 0, 1, 3 and 7 need nothing from you and
 ## 9. What I cannot do for you (content needed)
 
 I will not invent facts. To do steps 2, 4, 5 and 6 properly I need from you: your real stats; for each project one or two sentences on role, problem and outcome; what services you offer and whether to show prices; a CV file; a reply-time promise you will honour; what "available" means (freelance, full-time, from when); a short true bio; screenshots for Nizan Tech and the AI Voice Calling Agent.
+
+---
+
+## 10. Implementation outcome (after the audit)
+
+Built and shipped to `main` in five commits, each verified before pushing:
+
+| Step | Commit | What shipped |
+|---|---|---|
+| 0 + 1 Quick wins and foundations | `4f1498b` | Ink & Paper tokens, motion tokens (two curves, four durations), spacing tokens, shared page width, serif italic and metric fallback, `text-wrap`, cache headers (`vercel.json`), `content-visibility`, 0.4s once-per-session preloader, menu focus fix, 44px targets, press states, safe-area insets, quiet WhatsApp button that tucks away over the hero actions and contact, tablet and 320px hero fixes, two-column About from 700px |
+| 2 + 3 Hero v2, Navigation v2 | `21866f4` | Larger rounded thumbnails, 22px who-and-for-whom line, "Start a project" / "See the work", persistent desktop header with "Let's talk", scroll-progress hairline, sections reordered Hero, Projects, About, Contact |
+| 4 + 6 Projects v2, Contact v2 | `d5e0e14` | Alternating features, whole-card hit area, paper (bone) index chapter, row hover via transform, WhatsApp as primary action, copy feedback (lime pill, drawn check, email flash), thumbnails echo, "Featured projects" counted from data |
+| 7 Motion layer | `89e6404` | Native scroll-linked reveals, image clip and settle, stats count-up, cursor labels (View, Open, Copy, Chat) |
+
+**Live results** (https://midlaj-portfolio-psi.vercel.app/, after deploy of `89e6404`):
+
+| Run | Performance | Accessibility | Best practices | SEO | FCP | LCP | TBT | CLS |
+|---|---|---|---|---|---|---|---|---|
+| Mobile 1 | 100 | 100 | 100 | 100 | 1.3 s | 1.7 s | 10 ms | 0 |
+| Mobile 2 | 100 | 100 | 100 | 100 | 0.8 s | 1.5 s | 10 ms | 0 |
+| Mobile 3 | 100 | 100 | 100 | 100 | 0.8 s | 1.5 s | 10 ms | 0 |
+| Desktop | 100 | 100 | 100 | 100 | 0.3 s | 0.4 s | 0 ms | 0 |
+
+Before this round the live mobile score was 91-96 with TBT 190-290 ms. axe: 0 violations at 1440, at 390 and with the menu open. No targets under 24px. Zero console errors. Hashed assets and fonts now ship `max-age=31536000, immutable`.
+
+### Deliberately not done (needs your content, or a judgment call)
+- **Case-study panels, services and process, proof strip, About rewrite, CV, reply-time promise:** these need facts only you have. Not invented.
+- **"10+ happy clients" vs "3 live client sites":** still unchanged (you asked to keep your stats). "Featured projects" is now counted from the data, so it can no longer disagree with the page.
+- **Large blend-mode numerals on project rows:** skipped. Numbering is only justified for real sequences, and the audit's own rule was to avoid the template look.
+- **Signature interaction (hero pills carrying into the project reveals):** not built. It is the riskiest item; the scroll-linked reveals and the repeated thumbnails (hero and contact) give a lighter version of the motif.
+- **Lenis and GSAP:** not added; native CSS covers the needs and keeps the page at 100.
+- **Hero wording, "Available for work" detail, and the paper chapter's extent** (index only, not Contact): my calls; easy to change.
+- **Not verified:** real-device behaviour (iOS safe areas, touch), and the metric-matched fallback font values were estimated, not measured (CLS is 0 in Lighthouse).
