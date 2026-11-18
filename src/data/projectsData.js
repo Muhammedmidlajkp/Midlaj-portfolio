@@ -13,10 +13,11 @@ export const projects = [
   },
   {
     id: 'tayoki',
+    featured: true,
     title: "Tayoki",
     desc: "A kids' denim fashion storefront with a Seoul-inspired design, product collections with discounts, wishlist and cart, and a newsletter club, built as the customer-facing side of the shop.",
     tags: ["React", "CSS", "E-commerce", "Responsive Design"],
-    image: { name: 'tayoki', widths: [640, 1280], width: 1280, height: 800 },
+    image: { name: 'tayoki', widths: [640, 960, 1280], width: 1280, height: 800 },
     link: "https://muhammedmidlajkp.github.io/tayoki-userside/",
   },
   {
@@ -56,10 +57,11 @@ export const projects = [
   },
   {
     id: 'makeovers',
+    featured: true,
     title: "Team N Makeovers",
     desc: "A luxury bridal beauty website for a South Asian makeup and hairstyling studio, featuring service packages, portfolio galleries, and online booking for weddings and events.",
     tags: ["React", "Vite", "CSS", "Responsive Design"],
-    image: { name: 'makeovers', widths: [640, 1280], width: 1280, height: 608 },
+    image: { name: 'makeovers', widths: [640, 960, 1280], width: 1280, height: 608 },
     link: "https://team-n-makeovers.vercel.app/",
   },
   {
