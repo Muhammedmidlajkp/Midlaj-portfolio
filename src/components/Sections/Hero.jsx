@@ -10,9 +10,11 @@ const HEADLINE = 'One developer, from the first sketch to the deployed server.';
 const Thumb = ({ name }) => (
   <img
     className="hero-thumb"
-    src={`/img/${name}-thumb.webp`}
-    width="480"
-    height="300"
+    src={`/img/${name}-thumb-320.webp`}
+    srcSet={`/img/${name}-thumb-160.webp 160w, /img/${name}-thumb-320.webp 320w`}
+    sizes="(min-width: 1200px) 190px, 90px"
+    width="320"
+    height="200"
     alt=""
     decoding="async"
   />

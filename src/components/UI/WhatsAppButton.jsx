@@ -28,7 +28,8 @@ const WhatsAppButton = () => {
         rel="noopener noreferrer"
         className={`whatsapp-float${tucked ? ' is-tucked' : ''}`}
         aria-label="Chat on WhatsApp (opens in a new tab)"
-        tabIndex={tucked ? -1 : undefined}
+        aria-hidden={tucked || undefined}
+        inert={tucked}
       >
         <svg
           viewBox="0 0 24 24"

@@ -206,7 +206,7 @@
 
   /* the item you point at stays; the rest step back */
   .menu-list:hover a {
-    opacity: 0.55;
+    opacity: 0.6;
   }
 
   .menu-list a:hover {
@@ -297,8 +297,8 @@
 }
 
 .site-header {
-  padding-left: max(var(--pad-x), env(safe-area-inset-left));
-  padding-right: max(var(--pad-x), env(safe-area-inset-right));
+  padding-left: max(var(--pad-x), calc((100% - var(--wrap)) / 2 + var(--pad-x)));
+  padding-right: max(var(--pad-x), calc((100% - var(--wrap)) / 2 + var(--pad-x)));
 }
 
 .menu-panel {
@@ -315,7 +315,7 @@
 }
 
 .btn-sm {
-  min-height: 40px;
+  min-height: 44px;
   padding: 8px 20px;
   font-size: 0.9rem;
 }

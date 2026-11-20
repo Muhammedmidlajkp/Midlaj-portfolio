@@ -11,6 +11,8 @@
     "icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.1.0",
     "react": "^19.2.5",
     "react-dom": "^19.2.5"
   },

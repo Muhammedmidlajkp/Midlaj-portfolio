@@ -82,7 +82,7 @@ const Contact = () => {
 
         <div className="contact-thumbs" aria-hidden="true">
           {THUMBS.map((name) => (
-            <img key={name} src={`/img/${name}-thumb.webp`} width="480" height="300" alt="" loading="lazy" decoding="async" />
+            <img key={name} src={`/img/${name}-thumb-160.webp`} width="160" height="100" alt="" loading="lazy" decoding="async" />
           ))}
         </div>
       </div>

@@ -70,7 +70,10 @@ const Navbar = () => {
     const toggle = toggleRef.current;
     const dialog = dialogRef.current;
     document.body.style.overflow = 'hidden';
-    dialog.querySelector('a, button')?.focus();
+    dialog.querySelector('.menu-toggle')?.focus();
+    // the page behind the dialog is unreachable while it is open
+    const behind = [...document.querySelectorAll('.site-header, main, footer, aside')];
+    behind.forEach((el) => el.setAttribute('inert', ''));
 
     // Escape closes; Tab cycles inside the open menu (focus trap)
     const onKeyDown = (e) => {
@@ -95,6 +98,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
+      behind.forEach((el) => el.removeAttribute('inert'));
       const target = focusTarget.current;
       focusTarget.current = null;
       if (target) {
@@ -199,11 +203,17 @@ const Navbar = () => {
             <a className="menu-email" href={`mailto:${site.email}`}>{site.email}</a>
             <ul className="menu-links">
               <li>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                  WhatsApp
+                  <span className="visually-hidden"> (opens in a new tab)</span>
+                </a>
               </li>
               {site.socials.map((s) => (
                 <li key={s.label}>
-                  <a href={s.href} target="_blank" rel="noopener noreferrer">{s.label}</a>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer">
+                    {s.label}
+                    <span className="visually-hidden"> (opens in a new tab)</span>
+                  </a>
                 </li>
               ))}
             </ul>

@@ -323,3 +323,18 @@
   color: var(--muted);
   font-size: var(--step--1);
 }
+
+/* keyboard focus on paper: a dark ring (lime on cream fails 3:1) kept inside the row */
+.paper :focus-visible {
+  outline: 2px solid var(--ink-on-paper);
+  outline-offset: -4px;
+}
+
+.paper .row-tech,
+.paper .row-go {
+  color: rgba(18, 18, 16, 0.72);
+}
+
+.feature-link {
+  min-height: 44px;
+}

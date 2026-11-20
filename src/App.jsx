@@ -8,6 +8,7 @@ import About from './components/Sections/About';
 import Projects from './components/Sections/Projects';
 import Contact from './components/Sections/Contact';
 import Preloader from './components/UI/Preloader';
+import Insights from './components/UI/Insights';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
       <div className="app">
         <a className="skip-link" href="#main">Skip to main content</a>
         <CustomCursor />
+        <Insights />
         <Navbar />
         <main id="main">
           <Hero />

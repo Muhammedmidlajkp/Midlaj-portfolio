@@ -1,6 +1,7 @@
 // image: basename of the responsive set in public/img (see scripts/img.mjs).
 // featured: shown large at the top of Projects; the rest appear in the index list.
-// widths lists the generated WebP sizes; the largest also exists as JPEG.
+// widths lists the generated sizes (WebP, plus AVIF when avif is true); the largest
+// also exists as JPEG. Regenerate variants with: node scripts/make-variants.mjs
 export const projects = [
   {
     id: 'weddesy',
@@ -8,7 +9,7 @@ export const projects = [
     title: "Weddesy",
     desc: "An AI-powered wedding planning platform for Kochi that connects couples with services, consultations and specialists, with a guest mode and a story-first onboarding.",
     tags: ["Flutter", "Dart", "Web App", "AI"],
-    image: { name: 'weddesy', widths: [640, 960, 1280], width: 1280, height: 800 },
+    image: { name: 'weddesy', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 800 },
     link: "https://weddesy.nizantech.com/",
   },
   {
@@ -17,7 +18,7 @@ export const projects = [
     title: "Tayoki",
     desc: "A kids' denim fashion storefront with a Seoul-inspired design, product collections with discounts, wishlist and cart, and a newsletter club, built as the customer-facing side of the shop.",
     tags: ["React", "CSS", "E-commerce", "Responsive Design"],
-    image: { name: 'tayoki', widths: [640, 960, 1280], width: 1280, height: 800 },
+    image: { name: 'tayoki', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 800 },
     link: "https://muhammedmidlajkp.github.io/tayoki-userside/",
   },
   {
@@ -26,7 +27,7 @@ export const projects = [
     title: "Roots Business",
     desc: "A premium business website for a Bangalore apparel and denim manufacturer, showcasing its nine-stage production process, product categories and an enquiry form for brands.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "Client Project"],
-    image: { name: 'rootsbusiness', widths: [640, 960, 1280], width: 1280, height: 800 },
+    image: { name: 'rootsbusiness', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 800 },
     link: "https://www.rootsbusiness.in/",
   },
   {
@@ -34,7 +35,7 @@ export const projects = [
     title: "BizBook Consultancy",
     desc: "A corporate website for an Abu Dhabi accounting, tax and business consultancy, with service pages, process and industry sections, FAQs and consultation booking.",
     tags: ["HTML", "CSS", "JavaScript", "Responsive Design", "Client Project"],
-    image: { name: 'bizbookconsultancy', widths: [640, 1280], width: 1280, height: 800 },
+    image: { name: 'bizbookconsultancy', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 800 },
     link: "https://www.bizbookconsultancy.com/",
   },
   {
@@ -43,7 +44,7 @@ export const projects = [
     title: "Traveezy",
     desc: "A full-stack travel platform featuring AI-powered itineraries, seamless Google OAuth authentication, secure Razorpay integration, and real-time interactions.",
     tags: ["Node.js", "Express", "MongoDB", "EJS", "Razorpay", "REST APIs"],
-    image: { name: 'traveezy', widths: [640, 1024], width: 1024, height: 459 },
+    image: { name: 'traveezy', widths: [480, 640, 960, 1024], avif: true, width: 1024, height: 459 },
     // TODO-MIDLAJ: traveezy.online has an expired domain (checked 2026-11-20), so no live
     // link is shown. Renew it or add the live URL here as `link:` and the button returns.
   },
@@ -53,7 +54,7 @@ export const projects = [
     title: "TrustCore Contracting",
     desc: "A professional corporate website for a UAE-based facility management company, featuring service showcases, industry pages, civil defense compliance highlights, and 24/7 emergency response information.",
     tags: ["React", "Vite", "CSS", "Responsive Design"],
-    image: { name: 'trustcore', widths: [640, 960, 1280], width: 1280, height: 608 },
+    image: { name: 'trustcore', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 608 },
     link: "https://www.trustcorecontracting.ae/",
   },
   {
@@ -62,7 +63,7 @@ export const projects = [
     title: "Yas Clinic HSCT Protocol System",
     desc: "A prototype protocol management system for a stem cell transplant (HSCT) clinic, with a workspace home, protocol library, builder, review workflow and documents.",
     tags: ["Prototype", "Web App", "Healthcare"],
-    image: { name: 'yasclinic', widths: [640, 960, 1280], width: 1280, height: 800 },
+    image: { name: 'yasclinic', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 800 },
     link: "https://muhammedmidlajkp.github.io/Yas-Clinic-HSCT-Prototype/",
   },
   {
@@ -71,7 +72,7 @@ export const projects = [
     title: "Team N Makeovers",
     desc: "A luxury bridal beauty website for a South Asian makeup and hairstyling studio, featuring service packages, portfolio galleries, and online booking for weddings and events.",
     tags: ["React", "Vite", "CSS", "Responsive Design"],
-    image: { name: 'makeovers', widths: [640, 960, 1280], width: 1280, height: 608 },
+    image: { name: 'makeovers', widths: [480, 640, 960, 1280], avif: true, width: 1280, height: 608 },
     link: "https://team-n-makeovers.vercel.app/",
   },
   {
