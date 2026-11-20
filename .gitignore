@@ -26,3 +26,4 @@ dist-ssr
 # Research screenshots
 research/screenshots/
 research/forensic/screenshots/
+.playwright-mcp/

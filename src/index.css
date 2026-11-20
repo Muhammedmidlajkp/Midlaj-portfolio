@@ -180,16 +180,6 @@ button {
   touch-action: manipulation;
 }
 
-/* Below-the-fold sections skip rendering until they approach the viewport,
-   which cuts first-load layout work. "auto" remembers the last real size. */
-#about,
-#projects .feature,
-#projects .index,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 700px;
-}
-
 /* The custom cursor replaces the native one ONLY while CustomCursor is
    actually running (it sets .has-custom-cursor on <html>), so no viewport,
    pointer type or motion preference can leave the page cursor-less. */
