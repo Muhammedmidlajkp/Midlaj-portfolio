@@ -20,3 +20,9 @@ if (root.hasChildNodes()) {
 } else {
   createRoot(root).render(tree)
 }
+
+// Smooth scroll and scroll-driven motion arrive after the page is idle, in a
+// chunk of their own, so they never compete with first paint.
+const loadMotion = () => import('./motion/index.js').then((m) => m.default())
+const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 600))
+window.addEventListener('load', () => idle(loadMotion, { timeout: 2000 }), { once: true })

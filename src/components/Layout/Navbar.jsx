@@ -70,6 +70,7 @@ const Navbar = () => {
     const toggle = toggleRef.current;
     const dialog = dialogRef.current;
     document.body.style.overflow = 'hidden';
+    window.dispatchEvent(new CustomEvent('scroll-lock', { detail: true }));
     dialog.querySelector('.menu-toggle')?.focus();
     // the page behind the dialog is unreachable while it is open
     const behind = [...document.querySelectorAll('.site-header, main, footer, aside')];
@@ -98,6 +99,7 @@ const Navbar = () => {
     return () => {
       window.removeEventListener('keydown', onKeyDown);
       document.body.style.overflow = '';
+      window.dispatchEvent(new CustomEvent('scroll-lock', { detail: false }));
       behind.forEach((el) => el.removeAttribute('inert'));
       const target = focusTarget.current;
       focusTarget.current = null;

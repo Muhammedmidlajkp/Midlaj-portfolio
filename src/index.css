@@ -321,27 +321,27 @@ body::before {
    element enters the viewport; images get a clip and a slight settle. */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .section-title,
-    .contact-title,
-    .contact-sub,
-    .about-photo,
-    .stat,
-    .ledger-row,
-    .feature-body,
-    .index-title {
+    html:not(.motion-js) .section-title,
+    html:not(.motion-js) .contact-title,
+    html:not(.motion-js) .contact-sub,
+    html:not(.motion-js) .about-photo,
+    html:not(.motion-js) .stat,
+    html:not(.motion-js) .ledger-row,
+    html:not(.motion-js) .feature-body,
+    html:not(.motion-js) .index-title {
       animation: rise linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 55%;
     }
 
-    .feature-media,
-    .about-photo {
+    html:not(.motion-js) .feature-media,
+    html:not(.motion-js) .about-photo {
       animation: image-in linear both;
       animation-timeline: view();
       animation-range: entry 0% entry 65%;
     }
 
-    .feature-image {
+    html:not(.motion-js) .feature-image {
       animation: image-settle linear both;
       animation-timeline: view();
       animation-range: entry 0% cover 45%;
@@ -380,4 +380,23 @@ body::before {
   to {
     scale: 1;
   }
+}
+
+/* LENIS: smooth scrolling owned by script, so the native smooth-scroll steps aside */
+html.has-lenis {
+  scroll-behavior: auto;
+}
+
+html.lenis-stopped {
+  overflow: hidden;
+}
+
+/* parallax: the screenshot is a touch taller than its frame so it can drift */
+html.motion-js .feature-media {
+  overflow: hidden;
+}
+
+html.motion-js .feature-media img {
+  scale: 1.1;
+  will-change: transform;
 }
