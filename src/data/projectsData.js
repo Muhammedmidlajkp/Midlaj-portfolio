@@ -12,15 +12,6 @@ export const projects = [
     link: "https://weddesy.nizantech.com/",
   },
   {
-    id: 'yas-clinic',
-    featured: true,
-    title: "Yas Clinic HSCT Protocol System",
-    desc: "A prototype protocol management system for a stem cell transplant (HSCT) clinic, with a workspace home, protocol library, builder, review workflow and documents.",
-    tags: ["Prototype", "Web App", "Healthcare"],
-    image: { name: 'yasclinic', widths: [640, 960, 1280], width: 1280, height: 800 },
-    link: "https://muhammedmidlajkp.github.io/Yas-Clinic-HSCT-Prototype/",
-  },
-  {
     id: 'tayoki',
     featured: true,
     title: "Tayoki",
@@ -63,6 +54,15 @@ export const projects = [
     tags: ["React", "Vite", "CSS", "Responsive Design"],
     image: { name: 'trustcore', widths: [640, 960, 1280], width: 1280, height: 608 },
     link: "https://www.trustcorecontracting.ae/",
+  },
+  {
+    id: 'yas-clinic',
+    featured: true,
+    title: "Yas Clinic HSCT Protocol System",
+    desc: "A prototype protocol management system for a stem cell transplant (HSCT) clinic, with a workspace home, protocol library, builder, review workflow and documents.",
+    tags: ["Prototype", "Web App", "Healthcare"],
+    image: { name: 'yasclinic', widths: [640, 960, 1280], width: 1280, height: 800 },
+    link: "https://muhammedmidlajkp.github.io/Yas-Clinic-HSCT-Prototype/",
   },
   {
     id: 'makeovers',
