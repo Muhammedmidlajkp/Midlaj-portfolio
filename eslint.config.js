@@ -6,7 +6,7 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   // .claude holds other sessions' worktrees, which contain their own builds
-  globalIgnores(['dist', '.claude']),
+  globalIgnores(['dist', 'dist-ssr', '.claude']),
   {
     files: ['**/*.{js,jsx}'],
     extends: [
@@ -26,5 +26,10 @@ export default defineConfig([
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
     },
+  },
+  {
+    // build and tooling scripts run in Node, not the browser
+    files: ['scripts/**/*.{js,mjs}', 'vite.config.js'],
+    languageOptions: { globals: globals.node },
   },
 ])

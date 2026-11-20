@@ -1,13 +1,14 @@
 {
-  "name": "portfolio-2",
+  "name": "midlaj-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && vite build --ssr src/entry-server.jsx --outDir dist-ssr && node scripts/prerender.mjs",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "icons": "node scripts/make-icons.mjs"
   },
   "dependencies": {
     "react": "^19.2.5",
@@ -22,6 +23,17 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.5.0",
+    "sharp": "^0.35.5",
     "vite": "^8.0.9"
+  },
+  "description": "Portfolio of Muhammed Midlaj, a MERN stack developer building websites and web apps for clients in India and the UAE.",
+  "author": "Muhammed Midlaj",
+  "homepage": "https://midlaj-portfolio-psi.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muhammedmidlajkp/Midlaj-portfolio.git"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

@@ -36,3 +36,8 @@
     display: none;
   }
 }
+
+/* set on <html> by the inline script in index.html for repeat visits */
+.intro-seen .preloader {
+  display: none;
+}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { site } from '../../data/site';
 import './Hero.css';
 
@@ -18,26 +18,29 @@ const Thumb = ({ name }) => (
   />
 );
 
-// Local time where the work is done. Updates once a minute, which is all a
-// HH:MM readout needs, so it never causes more than one render per minute.
+const formatTime = () =>
+  new Intl.DateTimeFormat('en-GB', {
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: site.timeZone,
+  }).format(new Date());
+
+// re-read the time every 15 seconds; React only re-renders when HH:MM changes
+const subscribe = (notify) => {
+  const id = setInterval(notify, 15000);
+  return () => clearInterval(id);
+};
+
+// Local time where the work is done. The server (prerender) snapshot is empty,
+// so the prerendered HTML and the first client render match exactly; the real
+// time appears right after hydration. Until then the line is hidden, so there
+// is no layout shift and no stale build-time hour.
 const LiveClock = () => {
-  const format = () =>
-    new Intl.DateTimeFormat('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-      timeZone: site.timeZone,
-    }).format(new Date());
-
-  const [time, setTime] = useState(format);
-
-  useEffect(() => {
-    const id = setInterval(() => setTime(format()), 15000);
-    return () => clearInterval(id);
-  }, []);
+  const time = useSyncExternalStore(subscribe, formatTime, () => '');
 
   return (
-    <p className="hero-clock">
+    <p className={`hero-clock${time ? '' : ' is-pending'}`}>
       {site.location}, <time dateTime={time}>{time}</time> {site.timeZoneLabel}
     </p>
   );

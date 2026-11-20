@@ -1,0 +1,32 @@
+.fallback {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px var(--pad-x);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.fallback h1 {
+  font-size: var(--step-3);
+  line-height: 1;
+}
+
+.fallback a {
+  color: var(--accent);
+}
+
+.fallback button {
+  margin-top: 12px;
+  min-height: 44px;
+  padding: 10px 22px;
+  border: var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}

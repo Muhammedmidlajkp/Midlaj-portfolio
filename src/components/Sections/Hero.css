@@ -233,3 +233,9 @@
     display: none;
   }
 }
+
+/* until the real time is known (right after hydration) the line is hidden,
+   but still takes its space, so nothing shifts when it appears */
+.hero-clock.is-pending {
+  visibility: hidden;
+}

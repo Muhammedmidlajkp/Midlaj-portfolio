@@ -4,18 +4,12 @@ import './Preloader.css';
 const KEY = 'midlaj-intro-seen';
 
 // A short branded curtain that lifts off the already-rendered page. It never
-// gates mounting, plays once per browser session, and reduced-motion users
-// never see it (see Preloader.css).
-const seenBefore = () => {
-  try {
-    return sessionStorage.getItem(KEY) === '1';
-  } catch {
-    return false;
-  }
-};
-
+// gates mounting and plays once per browser session. Repeat visits are
+// hidden before first paint by a tiny inline script in index.html (class
+// "intro-seen on <html>"; see Preloader.css), so the server-rendered HTML and
+// the first client render are identical. Reduced-motion users never see it.
 const Preloader = () => {
-  const [done, setDone] = useState(seenBefore);
+  const [done, setDone] = useState(false);
   if (done) return null;
 
   return (
