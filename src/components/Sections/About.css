@@ -23,7 +23,12 @@
 .about-photo img {
   display: block;
   width: 100%;
+  /* TODO-MIDLAJ: replace profile-800 with a genuine, unwatermarked portrait.
+     Until then the bottom 9% is cropped off (800x971 of 800x1067). */
+  aspect-ratio: 800 / 971;
   height: auto;
+  object-fit: cover;
+  object-position: top;
 }
 
 .about-copy {

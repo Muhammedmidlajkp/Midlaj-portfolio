@@ -31,40 +31,61 @@ const Projects = () => {
 
       <div className="features">
         {featured.map((project) => (
-          <article key={project.id} id={`project-${project.id}`} className="feature" data-cursor="View">
+          <article
+            key={project.id}
+            id={`project-${project.id}`}
+            className="feature"
+            data-cursor={project.link ? 'View' : undefined}
+          >
             {/* the image repeats the title link, so it is skipped by keyboard
-                and assistive tech */}
-            <a
-              className="feature-media"
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              tabIndex={-1}
-              aria-hidden="true"
-            >
-              <ProjectImage
-                image={project.image}
-                alt=""
-                className="feature-image"
-                sizes="(max-width: 900px) 92vw, 760px"
-              />
-            </a>
+                and assistive tech; its alt text still gives crawlers and image
+                search a description. Without a live link it is just a picture. */}
+            {project.link ? (
+              <a
+                className="feature-media"
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                tabIndex={-1}
+                aria-hidden="true"
+              >
+                <ProjectImage
+                  image={project.image}
+                  alt={`${project.title} website screenshot`}
+                  className="feature-image"
+                  sizes="(max-width: 900px) 92vw, 760px"
+                />
+              </a>
+            ) : (
+              <div className="feature-media">
+                <ProjectImage
+                  image={project.image}
+                  alt={`${project.title} screenshot`}
+                  className="feature-image"
+                  sizes="(max-width: 900px) 92vw, 760px"
+                />
+              </div>
+            )}
 
             <div className="feature-body">
               {isClient(project) && <p className="feature-kind">Client work</p>}
               <h3 className="feature-title">{project.title}</h3>
               <p className="feature-desc">{project.desc}</p>
               <p className="feature-tech">{techOf(project).join(', ')}</p>
-              <a
-                className="feature-link"
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                View live site
-                <ArrowOut />
-                <NewTab title={project.title} />
-              </a>
+              {project.link ? (
+                <a
+                  className="feature-link"
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  View live site
+                  <ArrowOut />
+                  <NewTab title={project.title} />
+                </a>
+              ) : (
+                <p className="feature-offline">Live site unavailable</p>
+              )}
             </div>
           </article>
         ))}

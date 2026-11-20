@@ -44,7 +44,8 @@ export const projects = [
     desc: "A full-stack travel platform featuring AI-powered itineraries, seamless Google OAuth authentication, secure Razorpay integration, and real-time interactions.",
     tags: ["Node.js", "Express", "MongoDB", "EJS", "Razorpay", "REST APIs"],
     image: { name: 'traveezy', widths: [640, 1024], width: 1024, height: 459 },
-    link: "https://www.traveezy.online/",
+    // TODO-MIDLAJ: traveezy.online has an expired domain (checked 2026-11-20), so no live
+    // link is shown. Renew it or add the live URL here as `link:` and the button returns.
   },
   {
     id: 'trustcore',

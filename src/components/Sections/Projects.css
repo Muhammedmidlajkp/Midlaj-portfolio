@@ -314,3 +314,12 @@
 .paper .row:active {
   background: rgba(18, 18, 16, 0.09);
 }
+
+/* a featured project with no live link: plain note instead of the link */
+.feature-offline {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--muted);
+  font-size: var(--step--1);
+}

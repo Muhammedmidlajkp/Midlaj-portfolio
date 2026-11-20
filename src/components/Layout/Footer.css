@@ -34,3 +34,10 @@ footer {
   align-items: center;
   min-height: 44px;
 }
+
+/* the copyright line and the link sit on one shared 44px row */
+.footer-inner p {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+}
